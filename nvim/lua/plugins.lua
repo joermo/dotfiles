@@ -118,6 +118,12 @@ require("lazy").setup({
             require('plugconfig.fterm')
         end,
     },
+    {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end,
+    },
 
     -----------------------------------
     -- LSP, Completions and Snippets --
