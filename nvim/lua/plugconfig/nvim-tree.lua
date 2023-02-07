@@ -21,6 +21,7 @@ require('nvim-tree').setup({
             window_picker = {
                 enable = false,
             },
+            resize_window = true,
         },
     },
     renderer = {
@@ -49,8 +50,8 @@ require('nvim-tree').setup({
     },
 })
 
-vim.keymap.set('n', '<C-n>', '<CMD>NvimTreeToggle<CR>')
-vim.keymap.set('n', 'tf', '<CMD>NvimTreeFindFile<CR>')
+--vim.keymap.set('n', '<C-n>', '<CMD>NvimTreeToggle<CR>')
+--vim.keymap.set('n', 'tf', '<CMD>NvimTreeFindFile<CR>')
 
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('NVIM_TREE', { clear = true }),

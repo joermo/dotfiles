@@ -1,4 +1,4 @@
 require('keybinds')
-require('flags')
+require('options')
 require('plugins')
-require('autocmd')
+require("lazy").setup(plugins, opts)

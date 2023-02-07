@@ -1,8 +1,6 @@
 local g = vim.g
 local o = vim.o
 
-g.mapleader = ' '
-
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
@@ -23,7 +21,13 @@ o.background='dark'
 o.guicursor = ""
 o.errorbells = false
 o.smartindent = true
+o.signcolumn = 'yes:1'
+o.list = true
+vim.opt.listchars = { tab = '▸ ', trail = '·' }
+o.clipboard = 'unnamedplus'
+o.spell = false
 
 g.signcolumn = true
 g.noerrorbells = true
 g.noswapfile = true
+g.nvim_tree_respect_buf_cwd = 1
