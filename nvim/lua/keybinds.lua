@@ -15,4 +15,4 @@ bind('n', '<C-n>', '<CMD>NvimTreeToggle<CR>')
 bind('n', 'tf', '<CMD>NvimTreeFindFile<CR>')
 -- Terminal
 bind('n', '<A-i>', '<CMD>FloatermToggle<CR>')
-
+bind({'n','v','i'}, '<A-o>', '<CMD>stopinsert<CR>')

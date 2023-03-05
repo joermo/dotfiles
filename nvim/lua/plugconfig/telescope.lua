@@ -9,7 +9,7 @@ require('telescope').setup({
         layout_config = {
             prompt_position = 'top',
         },
-        file_ignore_patterns = {"node_modules"},
+        file_ignore_patterns = {"node_modules", ".vagrant", "venv"},
         mappings = {
             i = {
                 ['<ESC>'] = actions.close,
@@ -51,6 +51,9 @@ vim.keymap.set('n', "'b", '<CMD>lua Telescope.buffers()<CR>')
 
 -- Search for string
 vim.keymap.set('n', "'r", '<CMD>lua Telescope.live_grep()<CR>')
+
+-- Search for string - current buffers only
+vim.keymap.set('n', "'f", '<CMD>lua Telescope.live_grep({grep_open_files=true})<CR>')
 
 -- Fuzzy find changed files in git
 vim.keymap.set('n', "'c", '<CMD>lua Telescope.git_status()<CR>')

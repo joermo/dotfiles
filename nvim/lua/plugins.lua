@@ -130,17 +130,17 @@ require("lazy").setup({
     -----------------------------------
     { 'hrsh7th/cmp-nvim-lsp' },
     {
-        'neovim/nvim-lspconfig',
-        event = 'BufRead',
-        config = function()
-            require('plugconfig.lsp.servers')
-        end,
-    },
-    {
         'jose-elias-alvarez/null-ls.nvim',
         event = 'BufRead',
         config = function()
             require('plugconfig.lsp.null-ls')
+        end,
+    },
+    {
+        'neovim/nvim-lspconfig',
+        event = 'BufRead',
+        config = function()
+            require('plugconfig.lsp.servers')
         end,
     },
     {
