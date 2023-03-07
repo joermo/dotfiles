@@ -31,10 +31,16 @@ require("lazy").setup({
             require('nvim-web-devicons').setup()
         end,
     },
+--    {
+--        'ellisonleao/gruvbox.nvim',
+--        config = function()
+--            require('plugconfig.gruvbox')
+--        end,
+--    },
     {
-        'ellisonleao/gruvbox.nvim',
+        'tanvirtin/monokai.nvim',
         config = function()
-            require('plugconfig.gruvbox')
+            require('plugconfig.monokai')
         end,
     },
     { "nvim-lualine/lualine.nvim",
