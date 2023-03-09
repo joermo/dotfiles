@@ -130,6 +130,12 @@ require("lazy").setup({
             require('Comment').setup()
         end,
     },
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('plugconfig.indent-blankline')
+        end,
+    },
 
     -----------------------------------
     -- LSP, Completions and Snippets --
