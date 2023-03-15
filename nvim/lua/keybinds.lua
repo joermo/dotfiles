@@ -16,3 +16,35 @@ bind('n', 'tf', '<CMD>NvimTreeFindFile<CR>')
 -- Terminal
 bind('n', '<A-i>', '<CMD>FloatermToggle<CR>')
 bind({'n','v','i'}, '<A-o>', '<CMD>stopinsert<CR>')
+
+local range_formatting = function()
+    local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, "<"))
+    local end_row, _ = unpack(vim.api.nvim_buf_get_mark(0, ">"))
+    vim.lsp.buf.format({
+        range = {
+            ["start"] = { start_row, 0 },
+            ["end"] = { end_row, 0 },
+        },
+        async = true,
+    })
+end
+vim.keymap.set("v", "<leader>fc", range_formatting, { desc = "Range Formatting" })
+local function format_range_operator()
+    local old_func = vim.go.operatorfunc
+    _G.op_func_formatting = function()
+        local opts = {
+            range = {
+                ["start"] = vim.api.nvim_buf_get_mark(0, "["),
+                ["end"] = vim.api.nvim_buf_get_mark(0, "]"),
+            },
+        }
+        vim.lsp.buf.format(opts)
+        vim.go.operatorfunc = old_func
+        _G.op_func_formatting = nil
+    end
+    vim.go.operatorfunc = "v:lua.op_func_formatting"
+    vim.api.nvim_feedkeys("g@", "n", false)
+end
+
+-- vim.keymap.set("n", "gf", "<Cmd>lua format_range_operator()<CR>")
+vim.keymap.set("n", "gf", format_range_operator, { desc = "Range Formatting" })
