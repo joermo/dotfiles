@@ -21,6 +21,7 @@ o.background = "dark"
 o.guicursor = ""
 o.errorbells = false
 o.smartindent = true
+o.smartcase = true
 o.signcolumn = "yes:1"
 o.list = true
 vim.opt.listchars = { tab = "▸ ", trail = "·" }

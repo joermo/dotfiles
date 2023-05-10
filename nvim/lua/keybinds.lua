@@ -3,7 +3,6 @@ local bind = vim.keymap.set
 
 -- Default
 bind("i", "kj", "<Esc>")
-bind("i", "kj", "<Esc>")
 bind("n", "<Leader>n", "<CMD>noh<CR>")
 -- Windows
 bind("n", "<Leader>wl", "<C-W>l")
@@ -17,7 +16,7 @@ bind("n", "tf", "<CMD>NvimTreeFindFile<CR>")
 bind("n", "<A-i>", "<CMD>FloatermToggle<CR>")
 bind({ "n", "v", "i" }, "<A-o>", "<CMD>stopinsert<CR>")
 bind({ "t", "v", "i" }, "<Esc>", "<C-\\><C-n>")
-bind({ "t", "v", "i" }, "kj", "<C-\\><C-n>")
+-- bind({ "t", "v", "i" }, "kj", "<C-\\><C-n>")
 
 local range_formatting = function()
 	local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, "<"))

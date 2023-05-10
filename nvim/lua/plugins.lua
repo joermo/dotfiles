@@ -176,6 +176,12 @@ require("lazy").setup({
     { 'saadparwaiz1/cmp_luasnip' },
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-buffer' },
+    {
+        'andweeb/presence.nvim',
+        config = function()
+            require('plugconfig.presence')
+    end,
+    },
 
     performance = {
         rtp = {
