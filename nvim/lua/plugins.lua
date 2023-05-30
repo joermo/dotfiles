@@ -189,6 +189,12 @@ require("lazy").setup({
             require('plugconfig.trouble')
         end,
     },
+    {
+        'kdheepak/lazygit.nvim',
+        config = function()
+            require('plugconfig.lazygit')
+        end,
+    },
 
     performance = {
         rtp = {
