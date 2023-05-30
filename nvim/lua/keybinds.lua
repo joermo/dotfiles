@@ -17,22 +17,25 @@ bind("n", "<A-i>", "<CMD>FloatermToggle<CR>")
 bind({ "n", "v", "i" }, "<A-o>", "<CMD>stopinsert<CR>")
 bind({ "t", "v", "i" }, "<Esc>", "<C-\\><C-n>")
 -- bind({ "t", "v", "i" }, "kj", "<C-\\><C-n>")
+-- Lazygit
+bind("n", "<leader>g", "<CMD>LazyGit<CR>")
 -- Trouble
-bind("n", "<Leader>wj", "<C-W>j")
 bind("n", "<Leader>t", "<CMD>TroubleToggle<CR>")
 bind("n", "qf", "<CMD>TroubleToggle quickfix<CR>")
-
+-- Misc
 bind("v", "J", ":m '>+1<CR>gv=gv")
 bind("v", "K", ":m '<-2<CR>gv=gv")
-
+bind("x", "<leader>p", '"_dP')
 bind("n", "J", "mzJ`z")
 bind("n", "<C-d>", "<C-d>zz")
 bind("n", "<C-u>", "<C-u>zz")
 bind("n", "n", "nzzzv")
 bind("n", "N", "Nzzzv")
--- Lazygit
-bind("n", "<leader>g", "<CMD>LazyGit<CR>")
+bind("n", "<leader>f", function()
+	vim.lsp.buf.format()
+end)
 
+-- Formatting
 local range_formatting = function()
 	local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, "<"))
 	local end_row, _ = unpack(vim.api.nvim_buf_get_mark(0, ">"))
@@ -82,4 +85,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- bind("n", "gf", "<Cmd>lua format_range_operator()<CR>")
 bind("n", "gf", format_range_operator, { desc = "Range Formatting" })
 -- bind("n", "<leader>F", format_current_buffer, { desc = "Range Formatting" })
-bind("n", "<leader>fo", format_current_buffer, { desc = "Range Formatting" })
+-- bind("n", "<leader>fo", format_current_buffer, { desc = "Range Formatting" })
