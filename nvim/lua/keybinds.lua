@@ -17,6 +17,10 @@ bind("n", "<A-i>", "<CMD>FloatermToggle<CR>")
 bind({ "n", "v", "i" }, "<A-o>", "<CMD>stopinsert<CR>")
 bind({ "t", "v", "i" }, "<Esc>", "<C-\\><C-n>")
 -- bind({ "t", "v", "i" }, "kj", "<C-\\><C-n>")
+-- Trouble
+bind("n", "<Leader>wj", "<C-W>j")
+bind("n", "<Leader>t", "<CMD>TroubleToggle<CR>")
+bind("n", "qf", "<CMD>TroubleToggle quickfix<CR>")
 
 local range_formatting = function()
 	local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, "<"))

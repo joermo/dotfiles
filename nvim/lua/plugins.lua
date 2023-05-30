@@ -182,6 +182,13 @@ require("lazy").setup({
             require('plugconfig.presence')
     end,
     },
+    {
+        'folke/trouble.nvim',
+        event = 'InsertEnter',
+        config = function()
+            require('plugconfig.trouble')
+        end,
+    },
 
     performance = {
         rtp = {
