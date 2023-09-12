@@ -1,5 +1,1 @@
--- vim.cmd("filetype plugin on")
-require("keybinds")
-require("options")
-require("plugins")
-require("lazy").setup(plugins, opts)
+require("joermo")
