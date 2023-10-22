@@ -4,9 +4,9 @@
 local g = vim.g
 local o = vim.o
 
-o.tabstop = 4
-o.shiftwidth = 4
-o.softtabstop = 4
+o.tabstop = 2
+o.shiftwidth = 2
+o.softtabstop = 2
 o.expandtab = true
 o.relativenumber = true
 o.nu = true
@@ -38,3 +38,5 @@ g.noerrorbells = true
 g.noswapfile = true
 g.nvim_tree_respect_buf_cwd = 1
 o.conceallevel = 0
+
+-- g.nvim_tree_hijack_netrw = true

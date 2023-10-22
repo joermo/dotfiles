@@ -15,6 +15,9 @@ bind("n", "<Leader>wk", "<C-W>k")
 bind("n", "<Leader>wj", "<C-W>j")
 bind("n", "<Leader>wv", "<CMD>vsplit<CR>")
 bind("n", "<Leader>ws", "<CMD>split<CR>")
+-- Buffers
+bind({ "n", "i", "t" }, "H", "<CMD>bprevious<CR>")
+bind({ "n", "i", "t" }, "L", "<CMD>bnext<CR>")
 -- NvimTree
 bind("n", "<C-n>", "<CMD>NvimTreeToggle<CR>")
 bind("n", "tf", "<CMD>NvimTreeFindFile<CR>")
@@ -43,8 +46,8 @@ bind("n", "<leader>f", function()
 end)
 
 -- LSP
-bind("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 bind("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+bind("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 
 -- Formatting
 local range_formatting = function()
@@ -78,7 +81,7 @@ end
 
 local function format_current_buffer()
   local cur_buf = vim.nvim_get_current_buf
-  print(cur_buf)
+  -- print(cur_buf)
   local opts = { buf = cur_buf }
   vim.lsp.buf.format(opts)
 end

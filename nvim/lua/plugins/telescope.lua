@@ -28,6 +28,9 @@ return {
             ["<C-s>"] = actions.send_selected_to_qflist,
             ["<C-q>"] = actions.send_to_qflist,
           },
+          n = {
+            ["q"] = actions.close,
+          },
         },
       },
     }
