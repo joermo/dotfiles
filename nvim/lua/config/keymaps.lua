@@ -13,14 +13,16 @@ bind("n", "<Leader>wl", "<C-W>l")
 bind("n", "<Leader>wh", "<C-W>h")
 bind("n", "<Leader>wk", "<C-W>k")
 bind("n", "<Leader>wj", "<C-W>j")
+bind("n", "<Leader>wv", "<CMD>vsplit<CR>")
+bind("n", "<Leader>ws", "<CMD>split<CR>")
 -- NvimTree
 bind("n", "<C-n>", "<CMD>NvimTreeToggle<CR>")
 bind("n", "tf", "<CMD>NvimTreeFindFile<CR>")
 -- Terminal
-bind("n", "<A-i>", "<CMD>FloatermToggle<CR>")
-bind({ "n", "v", "i" }, "<A-o>", "<CMD>stopinsert<CR>")
-bind({ "t", "v", "i" }, "<Esc>", "<C-\\><C-n>")
--- bind({ "t", "v", "i" }, "kj", "<C-\\><C-n>")
+bind({ "n", "v", "i", "t" }, "<A-i>", "<CMD>lua require('FTerm').toggle()<CR>")
+bind({ "n", "v", "i", "t" }, "<A-o>", "<CMD>stopinsert<CR>")
+bind({ "t", "v", "i", "t" }, "<Esc>", "<C-\\><C-n>")
+bind({ "t", "v", "i", "t" }, "kj", "<C-\\><C-n>")
 -- Lazygit
 bind("n", "<leader>g", "<CMD>LazyGit<CR>")
 -- Trouble
