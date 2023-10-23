@@ -12,16 +12,10 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- File indent levels
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "html",
-  callback = function()
-    vim.opt_local.expandtab = true
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.formatoptions:append({ c = true, r = true, o = true, q = true })
-  end,
-})
+-- Set file type for zshrc
+vim.cmd([[au BufRead,BufNewFile .zshrc set filetype=zsh]])
+
+vim.cmd([[au BufRead,BufNewFile zsh set filetype=sh]])
 
 -- -- Startup Commands
 -- vim.api.nvim_create_autocmd("VimEnter", {

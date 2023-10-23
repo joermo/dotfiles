@@ -41,9 +41,9 @@ bind("n", "<C-d>", "<C-d>zz")
 bind("n", "<C-u>", "<C-u>zz")
 bind("n", "n", "nzzzv")
 bind("n", "N", "Nzzzv")
-bind("n", "<leader>f", function()
-  vim.lsp.buf.format()
-end)
+-- bind("n", "<leader>f", function()
+--   vim.lsp.buf.format()
+-- end)
 
 -- LSP
 bind("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -62,28 +62,31 @@ local range_formatting = function()
   })
 end
 bind("v", "<leader>fc", range_formatting, { desc = "Range Formatting" })
+
 local function format_range_operator()
   local old_func = vim.go.operatorfunc
   _G.op_func_formatting = function()
-    local opts = {
+    local rangeOpts = {
       range = {
         ["start"] = vim.api.nvim_buf_get_mark(0, "["),
         ["end"] = vim.api.nvim_buf_get_mark(0, "]"),
       },
     }
-    vim.lsp.buf.format(opts)
+    local plugin = require("lazy.core.config").plugins["conform.nvim"]
+    local Plugin = require("lazy.core.plugin")
+    local Util = require("lazyvim.util")
+    local opts = Plugin.values(plugin, "opts", false)
+    -- local buf = vim.fn.expand("%")
+    opts["range"] = rangeOpts["range"]
+    -- require("conform").format(Util.merge(opts.format, { bufnr = buf }))
+    require("conform").format(Util.merge(opts.format))
+    require("conform").format(opts)
+    -- vim.lsp.buf.format(opts)
     vim.go.operatorfunc = old_func
     _G.op_func_formatting = nil
   end
   vim.go.operatorfunc = "v:lua.op_func_formatting"
   vim.api.nvim_feedkeys("g@", "n", false)
-end
-
-local function format_current_buffer()
-  local cur_buf = vim.nvim_get_current_buf
-  -- print(cur_buf)
-  local opts = { buf = cur_buf }
-  vim.lsp.buf.format(opts)
 end
 
 -- Disable diagnostics for .env files
@@ -96,7 +99,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- bind("n", "gf", "<Cmd>lua format_range_operator()<CR>")
 bind("n", "gf", format_range_operator, { desc = "Range Formatting" })
--- bind("n", "<leader>F", format_current_buffer, { desc = "Range Formatting" })
--- bind("n", "<leader>fo", format_current_buffer, { desc = "Range Formatting" })

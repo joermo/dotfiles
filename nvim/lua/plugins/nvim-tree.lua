@@ -13,6 +13,7 @@ return {
       view = {
         width = 35,
         side = "left",
+        adaptive_size = true,
       },
       filters = {
         custom = { ".git$", "node_modules$", "^target$" },
