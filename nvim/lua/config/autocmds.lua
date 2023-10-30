@@ -27,3 +27,12 @@ vim.cmd([[au BufRead,BufNewFile zsh set filetype=sh]])
 --     end
 --   end,
 -- })
+--
+--
+-- Disable autoformat for python files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "python", "py" },
+  callback = function()
+    vim.b.autoformat = false
+  end,
+})

@@ -7,6 +7,7 @@ return {
       ["sh"] = { "shfmt" },
       ["javascript"] = { "prettier", "prettierd" },
       ["go"] = { "gofmt" },
+      ["yaml"] = { "yamllint", "yamlfmt" },
     },
   },
 }
