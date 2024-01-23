@@ -1,0 +1,93 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "editor.cursorSurroundingLines": 8,
+    "editor.cursorStyle": "block",
+    // Vim
+    // https://gist.github.com/skfarhat/4e88ef386c93b9dceb98121d9457edbf
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": false,
+    "vim.leader": "<space>",
+    "vim.insertModeKeyBindings": [
+        { "before": [ "k", "j" ], "after": [ "<Esc>" ] },
+        { "before": [ "j", "k" ], "after": [ "<Esc>" ] }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // Binds
+        { "before": [ "<leader>", "w", "w" ], "after": [ "<C-w>", "w" ] },
+        { "before": [ "<leader>", "w", "h" ], "after": [ "<C-w>", "h" ] },
+        { "before": [ "<leader>", "w", "j" ], "after": [ "<C-w>", "j" ] },
+        { "before": [ "<leader>", "w", "k" ], "after": [ "<C-w>", "k" ] },
+        { "before": [ "<leader>", "w", "l" ], "after": [ "<C-w>", "l" ] },
+        // Commands
+        { "before": [ "<C-n>" ], "commands": [ ":nohl" ] },
+        { "before": [ "K" ], "commands": [ "lineBreakInsert" ], "silent": true },
+        { "before": [ "<leader>", "t" ], "commands": [ "workbench.action.terminal.toggleTerminal" ] },
+        { "before": [ "t", "f" ], "commands": [ "revealInExplorer" ] },
+        { "before": [ "g", "]" ], "commands": [ "editor.action.goToImplementation" ] },
+        { "before": [ "<leader>", "w", "v" ], "commands": [ ":vsplit" ] },
+        { "before": [ "<leader>", "w", "s" ], "commands": [ ":split" ] },
+        { "before": [ "<leader>", "n", "f" ], "commands": [ "explorer.newFile" ] },
+        // ctrl + h to go right a tab
+        { "before": [ "H" ], "after": [ "<C-PageUp>" ] },
+        // ctrl + l to go left a tab
+        { "before": [ "L" ], "after": [ "<C-PageDown>" ] },
+        // Files
+        { "before": [ "'", "s"], "commands": [ "workbench.action.quickOpen" ] },
+        { "before": [ "'", "r"], "commands": [ "workbench.action.gotoSymbol" ] },
+        { "before": [ "<leader>", "t"], "commands": [ "workbench.actions.view.problems" ] },
+    ],
+    "vim.handleKeys": {
+        "<C-a>": true,
+        "<C-f>": false,
+        "<C-j>": false,
+        "<C-k>": false,
+        "<C-c>": false,
+        "<C-t>": false,
+        "<C-v>": false,
+        "<C-p>": false
+    },
+    "editor.lineNumbers": "relative",
+    // Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+    },
+    "editor.minimap.enabled": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "files.associations": {
+        "*.toml": "toml"
+    },
+    "sonarlint.pathToNodeExecutable": "/home/jojo/.nvm/versions/node/v16.19.0/bin/node",
+    "workbench.iconTheme": "material-icon-theme",
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua"
+    },
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "hediet.vscode-drawio.resizeImages": null,
+    "[go]": {
+        "editor.defaultFormatter": "golang.go"
+    },
+    "svelte.enable-ts-plugin": true,
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "[ignore]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    }
+}
