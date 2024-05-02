@@ -43,14 +43,16 @@ bind("n", "<C-u>", "<C-u>zz")
 bind("n", "n", "nzzzv")
 bind("n", "N", "Nzzzv")
 
+-- TODO possibly extract all keybinds from LSP to here; commenting out for now
+
 -- LSP
-bind("n", "gd", function()
-  require("telescope.builtin").lsp_definitions({ reuse_win = true })
-end)
+-- bind("n", "gd", function()
+--   require("telescope.builtin").lsp_definitions({ reuse_win = true })
+-- end)
 bind("n", "gi", function()
   require("telescope.builtin").lsp_implementations({ reuse_win = true })
 end)
-bind("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+-- bind("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 bind("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References" })
 bind({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 bind("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP Info" })
@@ -68,3 +70,11 @@ vim.keymap.set({ "n" }, "gf", format_range_operator, { desc = "Format Motion" })
 
 -- Lazygit
 bind("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
+
+
+-- Oil
+bind("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+
+-- Refactoring
+bind({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })

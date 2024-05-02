@@ -23,7 +23,17 @@ return {
       callback = function(ev)
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf, silent = true }
+        local opts = {
+          buffer = ev.buf,
+          silent = true
+        }
+
+        -- conditionally enable inlay hints if version >= 0.10
+        if vim.fn.has('nvim-0.10') == 1 then
+          opts.inlay_hints = {
+            enabled = true
+          }
+        end
 
         -- set keybinds
         opts.desc = "Show LSP references"
