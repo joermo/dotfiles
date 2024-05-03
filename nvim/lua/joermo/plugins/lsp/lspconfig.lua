@@ -5,6 +5,7 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
+    { "nvim-telescope/telescope.nvim" },
   },
   config = function()
     -- import lspconfig plugin
@@ -25,13 +26,13 @@ return {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = {
           buffer = ev.buf,
-          silent = true
+          silent = true,
         }
 
         -- conditionally enable inlay hints if version >= 0.10
-        if vim.fn.has('nvim-0.10') == 1 then
+        if vim.fn.has("nvim-0.10") == 1 then
           opts.inlay_hints = {
-            enabled = true
+            enabled = true,
           }
         end
 

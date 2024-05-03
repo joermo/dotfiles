@@ -20,6 +20,7 @@ return {
         liquid = { "prettier" },
         lua = { "stylua" },
         python = { "isort", "black" },
+        go = { "gofmt", "gopls" },
       },
       -- format_on_save = {
       --   lsp_fallback = true,
@@ -31,7 +32,7 @@ return {
 
   joermo_format_utils = {
     -- Custom function to invoke conform formatting
-    conform_format = function ()
+    conform_format = function()
       local conform = require("conform")
       conform.format({
         lsp_fallback = true,
@@ -40,7 +41,7 @@ return {
       })
     end,
     -- Custom function to format by range via objects and motions
-    format_range_operator = function ()
+    format_range_operator = function()
       local conform = require("conform")
       local old_func = vim.go.operatorfunc
       _G.op_func_formatting = function()
@@ -56,6 +57,6 @@ return {
       end
       vim.go.operatorfunc = "v:lua.op_func_formatting"
       vim.api.nvim_feedkeys("g@", "n", false)
-    end
-  }
+    end,
+  },
 }
