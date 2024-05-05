@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Set behavior for specific file patterns
+vim.cmd([[au BufRead,BufNewFile .bashrc set filetype=bash]])
 vim.cmd([[au BufRead,BufNewFile .zshrc set filetype=zsh]])
 vim.cmd([[au BufRead,BufNewFile zsh set filetype=sh]])
 

@@ -26,7 +26,8 @@ bind("n", "tf", "<CMD>NvimTreeFindFile<CR>")
 bind({ "n", "v", "i", "t" }, "<A-i>", "<CMD>lua require('FTerm').toggle()<CR>")
 bind({ "n", "v", "i", "t" }, "<A-o>", "<CMD>stopinsert<CR>")
 bind({ "t", "v", "i", "t" }, "<Esc>", "<C-\\><C-n>")
-bind({ "t", "i", "t" }, "kj", "<C-\\><C-n>")
+-- bind({ "t", "i", "t" }, "kj", "<C-\\><C-n>")
+bind({ "i" }, "kj", "<C-\\><C-n>")
 
 -- Trouble
 bind("n", "<Leader>t", "<CMD>TroubleToggle<CR>")
@@ -78,3 +79,12 @@ bind("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Refactoring
 bind({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
+
+
+-- Inlay Hints
+if vim.lsp.inlay_hint then
+  bind("n", "<leader>h", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+  end, { desc = "Toggle Inlay Hints" })
+end
+

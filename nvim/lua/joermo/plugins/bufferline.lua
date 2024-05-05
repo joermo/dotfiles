@@ -21,6 +21,8 @@
 
 return {
   "akinsho/bufferline.nvim",
+  branch = "release-please--branches--main--components--bufferline.nvim",
+  commit = "2670f1f177e5d1d5f3dea26ddb66485493d8fa52",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   version = "*",
   opts = {
@@ -35,3 +37,5 @@ return {
     },
   },
 }
+
+

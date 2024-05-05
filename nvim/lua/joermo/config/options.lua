@@ -28,7 +28,7 @@ vim.opt.listchars = { tab = "▸ ", trail = "·" }
 o.clipboard = "unnamedplus"
 o.spell = false
 o.cursorline = true
-o.columnline = true
+--o.columnline = true
 o.termguicolors = true
 
 g.signcolumn = true

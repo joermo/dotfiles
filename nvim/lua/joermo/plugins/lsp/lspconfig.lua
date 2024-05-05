@@ -29,13 +29,6 @@ return {
           silent = true,
         }
 
-        -- conditionally enable inlay hints if version >= 0.10
-        if vim.fn.has("nvim-0.10") == 1 then
-          opts.inlay_hints = {
-            enabled = true,
-          }
-        end
-
         -- set keybinds
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
@@ -82,7 +75,6 @@ return {
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
@@ -138,6 +130,7 @@ return {
               completion = {
                 callSnippet = "Replace",
               },
+              hint = { enable = true }
             },
           },
         })
