@@ -89,3 +89,5 @@ if vim.lsp.inlay_hint then
   end, { desc = "Toggle Inlay Hints" })
 end
 
+-- Copy link to current file and position in git
+bind("n", "<leader>lk", require('joermo.config.utils').copyFilePathAndLineNumber, { desc = "LSP Info" })
