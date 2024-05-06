@@ -14,6 +14,8 @@ return {
       end,
       desc = "Live grep across open files",
     },
+    { "<leader>o", function () require("telescope.builtin").lsp_document_symbols({}) end, desc = "Document Symbols" },
+    { "<leader>O", function () require("telescope.builtin").lsp_workspace_symbols({}) end, desc = "Workspace Symbols" },
   },
 
   opts = function()
