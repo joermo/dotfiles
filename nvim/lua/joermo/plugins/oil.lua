@@ -5,4 +5,8 @@ return {
   },
   -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  keymaps = {
+    ["-"] = "actions.parent",
+    ["_"] = "actions.open_cwd",
+  }
 }
