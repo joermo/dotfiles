@@ -62,6 +62,7 @@ bind("n", "gK", vim.lsp.buf.signature_help)
 bind("n", "<leader>cA", function()
   vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
 end)
+bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
 
 -- Formatting
 local conform_format = require("joermo.plugins.formatting").joermo_format_utils.conform_format
