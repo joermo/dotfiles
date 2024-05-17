@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("NVIM_TREE", { clear = true }),
   pattern = "NvimTree",
   callback = function()
-    vim.api.nvim_win_set_option(0, "wrap", false)
+    vim.api.nvim_win_set_option_value(0, "wrap", false)
   end,
 })
 
@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = ".env*",
   group = group,
   callback = function(args)
-    vim.diagnostic.disable(args.buf)
+    vim.diagnostic.enabled(args.buf, false)
   end,
 })
+

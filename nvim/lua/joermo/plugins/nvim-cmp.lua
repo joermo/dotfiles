@@ -26,6 +26,11 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
+      view = {
+        docs = {
+          auto_open = false
+        }
+      },
       completion = {
         -- completeopt = "menu,menuone,preview,noselect",
         completeopt = "menu,menuone,preview",
@@ -43,6 +48,13 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ['<C-;>'] = function()
+          if cmp.visible_docs() then
+            cmp.close_docs()
+          else
+            cmp.open_docs()
+          end
+        end
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
@@ -59,6 +71,13 @@ return {
           ellipsis_char = "...",
         }),
       },
+
+      -- performance = {
+      --   trigger_debounce_time = 500,
+      --   debounce = 500,
+      --   throttle = 550,
+      --   fetching_timeout = 80,
+      -- },
     })
   end,
 }
