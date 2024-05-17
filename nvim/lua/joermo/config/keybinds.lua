@@ -17,7 +17,7 @@ bind("n", "<Leader>ws", "<CMD>split<CR>")
 -- Buffers
 bind({ "n" }, "H", "<CMD>bprevious<CR>")
 bind({ "n" }, "L", "<CMD>bnext<CR>")
-bind({ "n" }, "<leader>q", "<CMD>%bd|e#<CR>")
+bind({ "n" }, "<leader>q", "<CMD>silent!%bd|e#<CR>", { desc = "Close all buffers except current" })
 
 -- NvimTree
 bind("n", "<C-n>", "<CMD>NvimTreeToggle<CR>")
