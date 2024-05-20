@@ -38,23 +38,3 @@ g.noswapfile = true
 g.nvim_tree_respect_buf_cwd = 1
 o.conceallevel = 0
 
--- Function to highlight yanked text with default visual highlight color
-function OnYank()
-  local default_highlight = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
-  vim.highlight.on_yank({
-    higroup = "Visual",
-    timeout = 100,
-    on_visual = true,
-    hl_default = default_highlight,
-  })
-end
-
--- Enable highlighting of yanked text
-vim.cmd([[
-    augroup YankHighlight
-        autocmd!
-        autocmd TextYankPost * lua OnYank()
-    augroup END
-]])
-
-

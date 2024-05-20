@@ -22,6 +22,8 @@ return {
         python = { "isort", "black" },
         go = { "gofmt", "gopls" },
         sh = { "shfmt" },
+        zsh = { "shfmt" },
+        bash = { "shfmt" },
       },
       -- format_on_save = {
       --   lsp_fallback = true,
