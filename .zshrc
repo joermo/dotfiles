@@ -90,7 +90,7 @@ alias v="$(command -v vim)"
 alias ls='ls --color'
 alias c='clear'
 alias zj='zellij options --default-layout compact'
-alias nvim='$HOME/Documents/programs/nvim.appimage'
+# alias nvim='$HOME/Documents/programs/nvim.appimage'
 vim() {
     arg_count="$#"
     if [[ arg_count -eq 0 ]]; then
@@ -108,6 +108,11 @@ vim() {
 }
 alias kc='kubectl'
 alias lg='lazygit'
+# export EDITOR='$HOME/Documents/programs/nvim.appimage'
+# export VISUAL='$HOME/Documents/programs/nvim.appimage'
+export EDITOR='nvim'
+export VISUAL='nvim'
+
 
 
 # Shell integrations

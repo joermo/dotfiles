@@ -1,13 +1,31 @@
--- For Gruvbox
+-- return {}
+
+-- for catppuccin
 return {
-  "ellisonleao/gruvbox.nvim",
-  priority = 1000,
+  "catppuccin/nvim",
   config = function()
-    require("gruvbox").setup({})
-    vim.o.background = "dark"
-    vim.cmd([[colorscheme gruvbox]])
+    vim.cmd("colorscheme catppuccin-mocha")
   end,
 }
+
+-- -- for flexoki
+-- return {
+--   "kepano/flexoki-neovim",
+--   config = function()
+--     vim.cmd("colorscheme flexoki-dark")
+--   end,
+-- }
+
+-- -- For Gruvbox
+-- return {
+--   "ellisonleao/gruvbox.nvim",
+--   priority = 1000,
+--   config = function()
+--     require("gruvbox").setup({})
+--     vim.o.background = "dark"
+--     vim.cmd([[colorscheme gruvbox]])
+--   end,
+-- }
 
 -- -- For oxocarbon
 -- return {

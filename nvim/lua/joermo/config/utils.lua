@@ -10,7 +10,6 @@ M.copyFilePathAndLineNumber = function()
     local current_repo = vim.fn.systemlist("git remote get-url origin")[1]
     local current_branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
 
-
     -- convert ssh to http
     if not string.find(current_repo, "http") then -- is ssh
       local git_host = string.match(current_repo, "^[^:]*")
@@ -35,6 +34,35 @@ M.copyFilePathAndLineNumber = function()
     vim.fn.setreg("+", current_file .. "#L" .. current_line)
     print("Copied full path to clipboard: " .. current_file .. "#L" .. current_line)
   end
+end
+
+-- Custom function to invoke conform formatting
+M.conform_format = function()
+  local conform = require("conform")
+  conform.format({
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 1000,
+  })
+end
+
+-- Custom function to format by range via objects and motions
+M.format_range_operator = function()
+  local conform = require("conform")
+  local old_func = vim.go.operatorfunc
+  _G.op_func_formatting = function()
+    local opts = {
+      range = {
+        ["start"] = vim.api.nvim_buf_get_mark(0, "["),
+        ["end"] = vim.api.nvim_buf_get_mark(0, "]"),
+      },
+    }
+    conform.format(opts)
+    vim.go.operatorfunc = old_func
+    _G.op_func_formatting = nil
+  end
+  vim.go.operatorfunc = "v:lua.op_func_formatting"
+  vim.api.nvim_feedkeys("g@", "n", false)
 end
 
 return M

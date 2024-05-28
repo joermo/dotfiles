@@ -8,7 +8,6 @@ o.expandtab = true
 o.relativenumber = true
 o.nu = true
 o.hidden = true
--- o.hidden = false
 o.ignorecase = true
 o.undodir = os.getenv("HOME") .. "/.nvim/undodir"
 o.undofile = true
@@ -25,12 +24,11 @@ o.smartindent = true
 o.smartcase = true
 o.signcolumn = "yes:1"
 o.list = true
-vim.opt.listchars = { tab = "▸ ", trail = "·" }
 o.clipboard = "unnamedplus"
 o.spell = false
 o.cursorline = true
---o.columnline = true
 o.termguicolors = true
+o.foldlevel = 99
 
 g.signcolumn = true
 g.noerrorbells = true
@@ -38,3 +36,19 @@ g.noswapfile = true
 g.nvim_tree_respect_buf_cwd = 1
 o.conceallevel = 0
 
+-- test configs
+g.lazygit_config = true
+o.mouse = "a" -- Enable mouse mode
+o.number = true -- Print line number
+o.pumblend = 10 -- Popup blend
+o.pumheight = 10 -- Maximum number of entries in a popup
+
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+vim.opt.listchars = { tab = "▸ ", trail = "·" }

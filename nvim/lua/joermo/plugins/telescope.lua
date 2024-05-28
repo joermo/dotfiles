@@ -14,8 +14,20 @@ return {
       end,
       desc = "Live grep across open files",
     },
-    { "<leader>o", function () require("telescope.builtin").lsp_document_symbols({}) end, desc = "Document Symbols" },
-    { "<leader>O", function () require("telescope.builtin").lsp_workspace_symbols({}) end, desc = "Workspace Symbols" },
+    {
+      "<leader>o",
+      function()
+        require("telescope.builtin").lsp_document_symbols({})
+      end,
+      desc = "Document Symbols",
+    },
+    {
+      "<leader>O",
+      function()
+        require("telescope.builtin").lsp_workspace_symbols({})
+      end,
+      desc = "Workspace Symbols",
+    },
   },
 
   opts = function()
@@ -32,10 +44,12 @@ return {
             ["<C-q>"] = actions.send_to_qflist,
           },
           n = {
+            ["qq"] = actions.close,
             ["q"] = actions.close,
           },
         },
       },
+      file_ignore_patterns = { "./node_modules/*", "node_modules", "^node_modules/*", "node_modules/*" },
     }
   end,
 }
