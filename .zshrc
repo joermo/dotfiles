@@ -46,7 +46,9 @@ zinit snippet OMZP::command-not-found
 
 
 # PATH:
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ $(command -v brew | grep wc -l) -eq 1 ]]; then
+  eval "$(brew shellenv)"
+fi
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
