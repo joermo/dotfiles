@@ -52,3 +52,4 @@ vim.opt.fillchars = {
   eob = " ",
 }
 vim.opt.listchars = { tab = "▸ ", trail = "·" }
+vim.opt.timeoutlen = 1000

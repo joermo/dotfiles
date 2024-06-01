@@ -20,8 +20,10 @@ bind({ "n" }, "L", "<CMD>bnext<CR>")
 bind({ "n" }, "<leader>Q", "<CMD>silent!%bd|e#<CR>", { desc = "Close all buffers except current" })
 
 -- File tree
-bind("n", "<C-n>", "<CMD>Neotree toggle<CR>")
-bind("n", "tf", "<CMD>Neotree focus<CR>")
+-- bind("n", "<C-n>", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
+-- bind("n", "tf", vim.cmd.NvimTreeFindFile, { desc = "Reveal current file in file tree" })
+bind("n", "<C-n>", "<CMD>Neotree toggle<CR>", { desc = "Toggle file tree" })
+bind("n", "tf", "<CMD>Neotree reveal<CR>", { desc = "Reveal current file in file tree" })
 
 -- Terminal
 bind({ "n", "v", "i", "t" }, "<A-i>", "<CMD>lua require('FTerm').toggle()<CR>")
@@ -31,8 +33,8 @@ bind({ "t", "v", "i", "t" }, "<Esc>", "<C-\\><C-n>")
 bind({ "i" }, "kj", "<C-\\><C-n>")
 
 -- Trouble
-bind("n", "<Leader>t", "<CMD>TroubleToggle<CR>")
-bind("n", "qf", "<CMD>TroubleToggle quickfix<CR>")
+bind("n", "<Leader>t", "<CMD>Trouble<CR>")
+bind("n", "qf", "<CMD>Trouble quickfix<CR>")
 
 -- Misc
 bind("v", "<leader>j", "J")
@@ -44,25 +46,7 @@ bind("n", "<C-d>", "<C-d>zz")
 bind("n", "<C-u>", "<C-u>zz")
 bind("n", "n", "nzzzv")
 bind("n", "N", "Nzzzv")
-
--- TODO possibly extract all keybinds from LSP to here; commenting out for now
-
--- LSP
--- bind("n", "gd", function()
---   require("telescope.builtin").lsp_definitions({ reuse_win = true })
--- end)
-bind("n", "gi", function()
-  require("telescope.builtin").lsp_implementations({ reuse_win = true })
-end)
--- bind("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-bind("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References" })
-bind({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-bind("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP Info" })
-bind("n", "gK", vim.lsp.buf.signature_help)
-bind("n", "<leader>cA", function()
-  vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
-end)
-bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
+bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Formatting
 local conform_format = require("joermo.config.utils").conform_format
@@ -93,18 +77,47 @@ bind("n", "<leader>lk", require("joermo.config.utils").copyFilePathAndLineNumber
 -- Undotree
 bind("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Open Undotree" })
 
--- LSP
--- set keybinds
-bind("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" }) -- show definition, references
-bind("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" }) -- go to declaration
-bind("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
-bind("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show LSP implementations" }) -- show lsp implementations
-bind("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Show LSP type definitions" }) -- show lsp type definitions
-bind({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "See available code actions" }) -- see available code actions, in visual mode will apply to selection
-bind("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" }) -- smart rename
-bind("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
-bind("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
+-- LSP -----------------------------------------------------------------------
+bind("n", "gd", function()
+  require("telescope.builtin").lsp_definitions({ reuse_win = true })
+end)
+bind("n", "gi", function()
+  require("telescope.builtin").lsp_implementations({ reuse_win = true })
+end)
+bind("n", "gt", function()
+  require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+end)
+-- bind("n", "gD", vim.lsp.buf.declaration) TODO
+bind("n", "gr", function()
+  require("telescope.builtin").lsp_references({ reuse_win = true })
+end, { desc = "References" })
+bind({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+bind("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP Info" })
+bind("n", "gK", vim.lsp.buf.signature_help)
+bind("n", "<leader>cA", function()
+  vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
+end)
+bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSPP" })
 bind("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" }) -- jump to previous diagnostic in buffer
 bind("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" }) -- jump to next diagnostic in buffer
-bind("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
-bind("n", "<leader>rs", ":LspRestart<CR>", { desc = "Restart LSP" }) -- mapping to restart lsp if necessary
+bind("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
+bind("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
+------------------------------------------------------------------------------
+
+-- Telescope------------------------------------------------------------------
+bind("n", "'s", "<CMD>Telescope find_files<CR>", { desc = "Find Files" })
+bind("n", "'b", "<CMD>Telescope find_buffers<CR>", { desc = "Find Open Buffers" })
+bind("n", "'r", "<CMD>Telescope live_grep<CR>", { desc = "Find Open Buffers" })
+bind("n", "'f", function()
+  require("telescope.builtin").live_grep({ grep_open_files = true })
+end, { desc = "Live grep across open files" })
+bind("n", "'c", function()
+  require("telescope.builtin").current_buffer_fuzzy_find({})
+end, { desc = "Fuzzy find in current buffer" })
+bind("n", "<leader>o", function()
+  require("telescope.builtin").lsp_document_symbols({})
+end, { desc = "Document Symbols" })
+bind("n", "<leader>O", function()
+  require("telescope.builtin").lsp_workspace_symbols({})
+end, { desc = "Workspace Symbols" })
+------------------------------------------------------------------------------

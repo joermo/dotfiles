@@ -1,9 +1,32 @@
--- Updates to lazyvim defaults
+-- return {}
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  branch = "v3.x",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    "MunifTanjim/nui.nvim",
+  },
   opts = {
     filesystem = {
       bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+      hide_gitignored = false,
+      follow_current_file = {
+        enabled = true,
+      },
+      filtered_items = {
+        visible = true,
+        hide_dotfiles = true,
+        hide_gitignored = true,
+        hide_hidden = true,
+        hide_by_name = {
+          "node_modules",
+        },
+      },
+    },
+    view = {
+      adaptive_size = true,
     },
     window = {
       mappings = {

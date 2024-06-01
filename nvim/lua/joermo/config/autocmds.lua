@@ -1,8 +1,5 @@
---require("lazyvim.config.autocmds")
---lazyvim.config.autocmds.
---vim.api.nvim_del_augroup_by_name("lazyvim_highlight_yank")
 local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup("joermo_" .. name, { clear = true })
 end
 
 -- Set behavior for specific file patterns
@@ -20,6 +17,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+-------------------------------------------------------------------------------
 -- Function to highlight yanked text with default visual highlight color
 function OnYank()
   local default_highlight = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
@@ -30,18 +28,6 @@ function OnYank()
     hl_default = default_highlight,
   })
 end
-
--- TODO fix this pls, currently being overwritten by lazyvim default augroup
---
--- Highlight on yank
--- Redefine from lazyvim to change color
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
-  callback = function()
-    OnYank()
-  end,
-})
-
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
@@ -49,6 +35,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     OnYank()
   end,
 })
+-------------------------------------------------------------------------------
 
 -- Disable autoformat for specific extensions
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -74,22 +61,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- Automatically select cached venv if exists
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Auto select virtualenv Nvim open",
-  pattern = "*",
+
+-- Automatically source the cached venv
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Auto select virtualenv Nvim open',
+  pattern = '*',
   callback = function()
-    local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
-    if venv ~= "" then
-      require("venv-selector").retrieve_from_cache()
+    local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+    if venv ~= '' then
+      vim.cmd([[silent! lua require('venv-selector').retrieve_from_cache()]])
     end
   end,
   once = true,
 })
 
--- Autocommand to overwrite lazyvim default options
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.opt.timeoutlen = 1000 -- override lazyvim default
-  end,
-})
+

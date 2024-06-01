@@ -1,0 +1,263 @@
+return {}
+-- return {
+--   -- auto completion
+--   {
+--     "hrsh7th/nvim-cmp",
+--     version = false, -- last release is way too old
+--     event = "InsertEnter",
+--     dependencies = {
+--       "hrsh7th/cmp-nvim-lsp",
+--       "hrsh7th/cmp-buffer",
+--       "hrsh7th/cmp-path",
+--     },
+--     -- Not all LSP servers add brackets when completing a function.
+--     -- To better deal with this, LazyVim adds a custom option to cmp,
+--     -- that you can configure. For example:
+--     --
+--     -- ```lua
+--     -- opts = {
+--     --   auto_brackets = { "python" }
+--     -- }
+--     -- ```
+--
+--     opts = function()
+--       local cmp_utils = require('joermo.config.lsp_utils')
+--       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+--       local cmp = require("cmp")
+--       local defaults = require("cmp.config.default")()
+--       return {
+--         auto_brackets = {
+--           'python'
+--         }, -- configure any filetype to auto add brackets
+--         completion = {
+--           completeopt = "menu,menuone,noinsert",
+--         },
+--         mapping = cmp.mapping.preset.insert({
+--           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+--           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+--           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+--           ["<C-f>"] = cmp.mapping.scroll_docs(4),
+--           ["<C-Space>"] = cmp.mapping.complete(),
+--           ["<C-e>"] = cmp.mapping.abort(),
+--           ["<CR>"] = cmp_utils.confirm(),
+--           ["<S-CR>"] = cmp_utils.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+--           ["<C-CR>"] = function(fallback)
+--             cmp.abort()
+--             fallback()
+--           end,
+--         }),
+--         sources = cmp.config.sources({
+--           { name = "nvim_lsp" },
+--           { name = "path" },
+--         }, {
+--           { name = "buffer" },
+--           { name = "luasnip" },
+--         }),
+--         -- formatting = {
+--         --   -- format = function(_, item)
+--         --   --   local icons = require("lazyvim.config").icons.kinds
+--         --   --   if icons[item.kind] then
+--         --   --     item.kind = icons[item.kind] .. item.kind
+--         --   --   end
+--         --   --   return item
+--         --   -- end,
+--         -- },
+--         experimental = {
+--           ghost_text = {
+--             hl_group = "CmpGhostText",
+--           },
+--         },
+--         sorting = defaults.sorting,
+--       }
+--     end,
+--     ---@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
+--     config = function(_, opts)
+--       local cmp_utils = require('joermo.config.lsp_utils')
+--       for _, source in ipairs(opts.sources) do
+--         source.group_index = source.group_index or 1
+--       end
+--
+--       local parse = require("cmp.utils.snippet").parse
+--       require("cmp.utils.snippet").parse = function(input)
+--         local ok, ret = pcall(parse, input)
+--         if ok then
+--           return ret
+--         end
+--         return cmp_utils.snippet_preview(input)
+--       end
+--
+--       local cmp = require("cmp")
+--       cmp.setup(opts)
+--       cmp.event:on("confirm_done", function(event)
+--         if vim.tbl_contains(opts.auto_brackets or {}, vim.bo.filetype) then
+--           cmp_utils.auto_brackets(event.entry)
+--         end
+--       end)
+--       cmp.event:on("menu_opened", function(event)
+--         cmp_utils.add_missing_snippet_docs(event.window)
+--       end)
+--     end,
+--   },
+--
+--   -- snippets
+--   vim.fn.has("nvim-0.10") == 1
+--       and {
+--         "nvim-cmp",
+--         dependencies = {
+--           {
+--             "garymjr/nvim-snippets",
+--             opts = {
+--               friendly_snippets = true,
+--               global_snippets = { "all", "global" },
+--             },
+--             dependencies = { "rafamadriz/friendly-snippets" },
+--           },
+--         },
+--         opts = function(_, opts)
+--           opts.snippet = {
+--             expand = function(item)
+--               return require('joermo.config.lsp_utils').expand(item.body)
+--             end,
+--           }
+--           table.insert(opts.sources, { name = "snippets" })
+--         end,
+--         keys = {
+--           {
+--             "<Tab>",
+--             function()
+--               return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
+--             end,
+--             expr = true,
+--             silent = true,
+--             mode = { "i", "s" },
+--           },
+--           {
+--             "<S-Tab>",
+--             function()
+--               return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<Tab>"
+--             end,
+--             expr = true,
+--             silent = true,
+--             mode = { "i", "s" },
+--           },
+--         },
+--       }
+--     or { import = "lazyvim.plugins.extras.coding.luasnip", enabled = vim.fn.has("nvim-0.10") == 0 },
+-- }
+--
+--
+--
+-- -- CREATE_UNDO = vim.api.nvim_replace_termcodes("<c-G>u", true, true, true)
+-- -- local function create_undo()
+-- --   if vim.api.nvim_get_mode().mode == "i" then
+-- --     vim.api.nvim_feedkeys(CREATE_UNDO, "n", false)
+-- --   end
+-- -- end
+-- --
+-- -- ---@param opts? {select: boolean, behavior: cmp.ConfirmBehavior}
+-- -- local function confirm(opts)
+-- --   local cmp = require("cmp")
+-- --   opts = vim.tbl_extend("force", {
+-- --     select = true,
+-- --     behavior = cmp.ConfirmBehavior.Insert,
+-- --   }, opts or {})
+-- --   return function(fallback)
+-- --     if cmp.core.view:visible() or vim.fn.pumvisible() == 1 then
+-- --       create_undo()
+-- --       if cmp.confirm(opts) then
+-- --         return
+-- --       end
+-- --     end
+-- --     return fallback()
+-- --   end
+-- -- end
+-- --
+-- --
+-- -- return {
+-- --   "hrsh7th/nvim-cmp",
+-- --   event = "InsertEnter",
+-- --   dependencies = {
+-- --     "hrsh7th/cmp-buffer", -- source for text in buffer
+-- --     "hrsh7th/cmp-path", -- source for file system paths
+-- --     { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp", },
+-- --     "saadparwaiz1/cmp_luasnip", -- for autocompletion
+-- --     "rafamadriz/friendly-snippets", -- useful snippets
+-- --     "onsails/lspkind.nvim", -- vs-code like pictograms
+-- --     -- { "folke/neodev.nvim" },
+-- --   },
+-- --   config = function()
+-- --     local cmp = require("cmp")
+-- --     local defaults = require("cmp.config.default")()
+-- --     local luasnip = require("luasnip")
+-- --     local lspkind = require("lspkind")
+-- --     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+-- --
+-- --     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+-- --     require("luasnip.loaders.from_vscode").lazy_load()
+-- --
+-- --     cmp.setup({
+-- --       auto_brackets = {}, -- configure any filetype to auto add brackets
+-- --       -- completion = {
+-- --       --   completeopt = "menu,menuone,preview,noselect",
+-- --       -- },
+-- --       completion = {
+-- --         completeopt = "menu,menuone,noinsert",
+-- --       },
+-- --       -- preselect = 'first',
+-- --       confirmation = { completeopt = 'menu,menuone,noinsert' },
+-- --       snippet = { -- configure how nvim-cmp interacts with snippet engine
+-- --         expand = function(args)
+-- --           luasnip.lsp_expand(args.body)
+-- --         end,
+-- --       },
+-- --       mapping = cmp.mapping.preset.insert({
+-- --         -- ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+-- --         -- ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+-- --         -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+-- --         -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
+-- --         -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+-- --         -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+-- --         -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
+-- --           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+-- --           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+-- --           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+-- --           ["<C-f>"] = cmp.mapping.scroll_docs(4),
+-- --           ["<C-Space>"] = cmp.mapping.complete(),
+-- --           ["<C-e>"] = cmp.mapping.abort(),
+-- --           ["<CR>"] = confirm(),
+-- --           ["<S-CR>"] = confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+-- --           ["<C-CR>"] = function(fallback)
+-- --             cmp.abort()
+-- --             fallback()
+-- --           end,
+-- --       }),
+-- --       -- sources for autocompletion
+-- --       -- sources = cmp.config.sources({
+-- --       --   { name = "nvim_lsp"},
+-- --       --   { name = "luasnip" }, -- snippets
+-- --       --   { name = "buffer" }, -- text within current buffer
+-- --       --   { name = "path" }, -- file system paths
+-- --       -- }),
+-- --         sources = cmp.config.sources({
+-- --           { name = "nvim_lsp" },
+-- --           { name = "path" },
+-- --         }, {
+-- --           { name = "buffer" },
+-- --         }),
+-- --
+-- --       -- configure lspkind for vs-code like pictograms in completion menu
+-- --       formatting = {
+-- --         format = lspkind.cmp_format({
+-- --           maxwidth = 50,
+-- --           ellipsis_char = "...",
+-- --         }),
+-- --       },
+-- --       experimental = {
+-- --         ghost_text = {
+-- --           hl_group = "CmpGhostText",
+-- --         },
+-- --       },
+-- --       sorting = defaults.sorting,
+-- --     })
+-- --   end,
+-- -- }
