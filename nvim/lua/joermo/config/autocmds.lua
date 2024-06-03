@@ -88,15 +88,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --   end,
 -- })
 
-
--- Given diagnostic types are (in inc. severity):  Info, Hint, Warn, Error
--- Disable underline diagnostics for anything above HINT
+-- Given diagnostic types are (in inc. severity):  Hint, Info, Warn, Error
+-- Disable underline diagnostics for anything above INFO
 -- Disable virtual text diagnostics for anything below WARN
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
   callback = function()
     vim.diagnostic.config({
       underline = {
-        severity = { max = vim.diagnostic.severity.HINT },
+        severity = { max = vim.diagnostic.severity.INFO },
       },
       virtual_text = {
         severity = { min = vim.diagnostic.severity.WARN },
@@ -104,4 +103,3 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     })
   end,
 })
-

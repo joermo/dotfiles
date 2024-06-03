@@ -27,9 +27,11 @@ local tools_ensure_installed = {
 return {
   "williamboman/mason.nvim",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "williamboman/mason-lspconfig.nvim",
   },
+  -- event = { "BufReadPost", "BufNewFile" },
+  -- cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   config = function()
     local mason = require("mason")
     local mason_lspconfig = require("mason-lspconfig")
