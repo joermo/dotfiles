@@ -1,4 +1,3 @@
--- Lua
 return {
   {
     "abecodes/tabout.nvim",

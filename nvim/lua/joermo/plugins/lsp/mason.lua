@@ -11,7 +11,7 @@ local lsp_ensure_installed = {
   "basedpyright",
   -- "pyright",
   "ruff",
-  "marksman"
+  "marksman",
 }
 
 local tools_ensure_installed = {
