@@ -61,18 +61,47 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-
 -- Automatically source the cached venv
-vim.api.nvim_create_autocmd('VimEnter', {
-  desc = 'Auto select virtualenv Nvim open',
-  pattern = '*',
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Auto select virtualenv Nvim open",
+  pattern = "*",
   callback = function()
-    local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
-    if venv ~= '' then
+    local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+    if venv ~= "" then
       vim.cmd([[silent! lua require('venv-selector').retrieve_from_cache()]])
     end
   end,
   once = true,
 })
 
+-- -- Enable autoformatting for lua files
+-- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+--   -- pattern = { "lua" },
+--   callback = function()
+--     print('setting it ')
+--     -- disable virtual text for anything non-error
+--     vim.diagnostic.config({
+--       virtual_text = {
+--         min = vim.diagnostic.severity.WARN,
+--       },
+--     })
+--   end,
+-- })
+
+
+-- Given diagnostic types are (in inc. severity):  Info, Hint, Warn, Error
+-- Disable underline diagnostics for anything above HINT
+-- Disable virtual text diagnostics for anything below WARN
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  callback = function()
+    vim.diagnostic.config({
+      underline = {
+        severity = { max = vim.diagnostic.severity.HINT },
+      },
+      virtual_text = {
+        severity = { min = vim.diagnostic.severity.WARN },
+      },
+    })
+  end,
+})
 

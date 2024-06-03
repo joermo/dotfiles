@@ -66,7 +66,7 @@ bind({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 
 -- Inlay Hints
 if vim.lsp.inlay_hint then
-  bind("n", "<leader>h", function()
+  bind("n", "<leader>H", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
   end, { desc = "Toggle Inlay Hints" })
 end
