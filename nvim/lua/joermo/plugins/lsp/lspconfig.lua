@@ -1,3 +1,16 @@
+-- Define custom diagnostics to be ignored for basedpyright
+local function basedpyright_filtered_diagnostics(diagnostic)
+  local basedpyright_ignored_codes = {
+    ["reportImplicitRelativeImport"] = true,
+  }
+  return not basedpyright_ignored_codes[diagnostic.code]
+end
+-- Perform custom filter for basedpyright
+local function perform_basedpyright_diag_filter(a, params, client_id, c, config)
+  params.diagnostics = vim.tbl_filter(basedpyright_filtered_diagnostics, params.diagnostics)
+  vim.lsp.diagnostic.on_publish_diagnostics(a, params, client_id, c, config)
+end
+
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
@@ -57,7 +70,14 @@ return {
           },
         })
       end,
-
+      ["basedpyright"] = function()
+        -- configure basedpyright with special options
+        lspconfig["basedpyright"].setup({
+          on_attach = function(client, bufnr)
+            client.handlers["textDocument/publishDiagnostics"] = perform_basedpyright_diag_filter
+          end,
+        })
+      end,
       -- Custom for ruff; disable hover from ruff
       [ruff] = function()
         require("joermo.config.lsp-utils").on_attach(function(client, _)
@@ -69,4 +89,3 @@ return {
     })
   end,
 }
-
