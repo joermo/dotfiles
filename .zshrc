@@ -9,10 +9,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Load homebrew if installed
 if [[ -f "/opt/homebrew/bin/brew" ]] then
-  # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]] then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -38,11 +44,11 @@ zinit light Aloxaf/fzf-tab
 # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
-zinit snippet OMZP::command-not-found
+# zinit snippet OMZP::archlinux
+# zinit snippet OMZP::aws
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::kubectx
+# zinit snippet OMZP::command-not-found
 
 
 # PATH:
@@ -63,8 +69,8 @@ zinit cdreplay -q
 
 # Keybindings
 bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+# bindkey '^n' history-search-backward
+# bindkey '^p' history-search-forward
 bindkey '^[w' kill-region
 
 # History
@@ -88,6 +94,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"
 alias v="$(command -v vim)"
 alias ls='ls --color'
 alias c='clear'
@@ -110,11 +117,8 @@ vim() {
 }
 alias kc='kubectl'
 alias lg='lazygit'
-# export EDITOR='$HOME/Documents/programs/nvim.appimage'
-# export VISUAL='$HOME/Documents/programs/nvim.appimage'
 export EDITOR='nvim'
 export VISUAL='nvim'
-
 
 
 # Shell integrations
@@ -147,3 +151,6 @@ npm() {
 nvm() {
     lazy_load_node_npm && node "$@"
 }
+
+
+export TERM=xterm-256color # for compatibility when SSH into remotes
