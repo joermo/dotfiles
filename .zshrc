@@ -52,7 +52,7 @@ zinit snippet OMZP::sudo
 
 
 # PATH:
-if [[ $(command -v brew | grep wc -l) -eq 1 ]]; then
+if [[ $(command -v brew | wc -l) -eq 1 ]]; then
   eval "$(brew shellenv)"
 fi
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -119,6 +119,10 @@ alias kc='kubectl'
 alias lg='lazygit'
 export EDITOR='nvim'
 export VISUAL='nvim'
+if [[  $(command -v xclip | wc -l) -eq 1  ]]; then
+  alias copy='xclip -selection clipboard'
+  alias paste='xclip -selection clipboard -o'
+fi
 
 
 # Shell integrations
