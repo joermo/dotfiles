@@ -1,34 +1,74 @@
+" Plugins
+  " Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+  " Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+" Options
+set number
+set expandtab
 set shiftwidth=4
 set tabstop=4
+set relativenumber
+set termguicolors
+set spell
+set title
 set ignorecase
 set smartcase
 set nowrap
-set listchars=tab:▶\ ,trail:·
 set mouse=a
 set scrolloff=8
-set sliderscrolloff=8
+set sidescrolloff=8
 set nojoinspaces
 set splitright
-set confirm
+set clipboard=unnamedplus
+set incsearch
 set updatetime=300
 set redrawtime=10000
-inoremap kj <Esc>
-set mapleader =" "
-nmap <space> <Leader>
+set confirm
+set listchars=tab:▶\ ,trail:·
+set clipboard+=ideaput
 
+
+" Keybinds
+let mapLeader = " "
+nmap <space> <Leader>
+inoremap kj <Esc>
+" Keybinds (LSP)
 nmap g] :action GotoImplementation<CR>
 nmap tf :action SelectInProjectView<CR>
-nnoremap <leader>gb :action Git.Branches<CR>
-nnoremap <leader>fn :action ShowNavBar<CR>
-nnoremap <leader>ga :action Annotate<CR>
-
+nmap gb :action Git.Branches<CR>
+nmap ga :action Annotate<CR>
+xnoremap <leader>fc : action ReformatCode<CR>
+xnoremap <leader>sw : action $SearchWeb<CR>
+" Keybinds (windows)
 map <leader>wv :vsplit<CR>
 map <leader>ws :split<CR>
 map <leader>wd <C-W>c
-map <leader>wx <C-W>c
 map <leader>ww <C-W>w
-map <leader>wl <C-W>l
 map <leader>wh <C-W>h
-map <leader>wk <C-W>k
 map <leader>wj <C-W>j
+map <leader>wk <C-W>k
+map <leader>wl <C-W>l
 map <leader>wo <C-W>o
+" Keybinds (editor)
+map <leader>= :action EditorIncreaseFontSize<CR>
+map <leader>- :action EditorDecreaseFontSize<CR>
+nmap <leader>t :action ActivateTerminalToolWindow<CR>
+nmap <leader>fc :action ReformatCode<CR>
+nmap <leader>ss :action Scratch.ShowFilesPopup<CR>
+nmap <leader>sf :action <Action>(SearchEverywhere)
+" Keybinds (text manip)
+noremap <leader>d "_d
+vnoremap <leader>d "_d
+" Keybinds (tabs)
+map L <Action>(NextTab)
+map H <Action>(PreviousTab)
+" Keybinds (fuzzy and search)
+nmap 's <Action>(GotoFile)
+nmap 'f <Action>(GotoSymbol)
+nmap 'r <Action>(FindInPath)
+" Keybinds (misc)
+nmap <leader>r <C-C>
+nmap <leader>c <C-k>
