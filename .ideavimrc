@@ -62,6 +62,7 @@ nmap <leader>t :action ActivateTerminalToolWindow<CR>
 nmap <leader>fc :action ReformatCode<CR>
 nmap <leader>ss :action Scratch.ShowFilesPopup<CR>
 nmap <leader>sf :action <Action>(SearchEverywhere)
+nmap <leader>q :action CloseAllEditorsButActive<CR>
 " Keybinds (text manip)
 noremap <leader>d "_d
 vnoremap <leader>d "_d
