@@ -2,7 +2,8 @@
   " Highlight copied text
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = "100"
-let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+" let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+let g:highlightedyank_highlight_color = "rgba(255, 171, 190, 50)"
   " Commentary plugin
 Plug 'tpope/vim-commentary'
 
