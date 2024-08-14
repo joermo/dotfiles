@@ -1,3 +1,6 @@
+" Actions list:
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+
 " Plugins
   " Highlight copied text
 Plug 'machakann/vim-highlightedyank'
@@ -45,6 +48,7 @@ nmap gb :action Git.Branches<CR>
 nmap ga :action Annotate<CR>
 xnoremap <leader>fc : action ReformatCode<CR>
 xnoremap <leader>sw : action $SearchWeb<CR>
+nmap <leader>rn <Action>(RenameElement)
 " Keybinds (windows)
 map <leader>wv :vsplit<CR>
 map <leader>ws :split<CR>
