@@ -39,7 +39,7 @@ bind({ "i" }, "kj", "<C-\\><C-n>")
 bind("n", "<Leader>t", "<CMD>Trouble<CR>")
 bind("n", "qf", "<CMD>Trouble quickfix<CR>")
 
--- Misc
+-- Misc/Utility
 bind("v", "<leader>j", "J")
 bind("v", "J", ":m '>+1<CR>gv=gv")
 bind("v", "K", ":m '<-2<CR>gv=gv")
@@ -50,6 +50,7 @@ bind("n", "<C-u>", "<C-u>zz")
 bind("n", "n", "nzzzv")
 bind("n", "N", "Nzzzv")
 bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+bind("v", "<leader>ma", [[:'<,'>normal @a<CR>]], { noremap = true, silent = true })
 
 -- Formatting
 local conform_format = require("config.utils").conform_format

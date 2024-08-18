@@ -1,7 +1,7 @@
 local lsp_ensure_installed = {
   "tsserver",
   "html",
-  "cssls",
+  "css",
   "tailwindcss",
   "svelte",
   "lua_ls",
@@ -12,6 +12,7 @@ local lsp_ensure_installed = {
   -- "pyright",
   "ruff",
   "marksman",
+  "asdfasdfasdfa",
 }
 
 local tools_ensure_installed = {
@@ -22,6 +23,7 @@ local tools_ensure_installed = {
   "pylint",
   "eslint_d",
   "shellcheck",
+  "shfmt",
 }
 
 return {
