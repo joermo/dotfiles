@@ -1,3 +1,6 @@
+-- -- Keymaps are automatically loaded on the VeryLazy event
+-- -- Default keymaps that are always set: htps://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- -- Add any additional keymaps here
 vim.g.mapleader = " "
 local bind = vim.keymap.set
 
@@ -20,10 +23,10 @@ bind({ "n" }, "L", "<CMD>bnext<CR>")
 bind({ "n" }, "<leader>Q", "<CMD>silent!%bd|e#<CR>", { desc = "Close all buffers except current" })
 
 -- File tree
--- bind("n", "<C-n>", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
--- bind("n", "tf", vim.cmd.NvimTreeFindFile, { desc = "Reveal current file in file tree" })
-bind("n", "<C-n>", "<CMD>Neotree toggle<CR>", { desc = "Toggle file tree" })
-bind("n", "tf", "<CMD>Neotree reveal<CR>", { desc = "Reveal current file in file tree" })
+bind("n", "<C-n>", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
+bind("n", "tf", vim.cmd.NvimTreeFindFile, { desc = "Reveal current file in file tree" })
+-- bind("n", "<C-n>", "<CMD>Neotree toggle<CR>", { desc = "Toggle file tree" })
+-- bind("n", "tf", "<CMD>Neotree reveal<CR>", { desc = "Reveal current file in file tree" })
 
 -- Terminal
 bind({ "n", "v", "i", "t" }, "<A-i>", "<CMD>lua require('FTerm').toggle()<CR>")
@@ -49,8 +52,8 @@ bind("n", "N", "Nzzzv")
 bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Formatting
-local conform_format = require("joermo.config.utils").conform_format
-local format_range_operator = require("joermo.config.utils").format_range_operator
+local conform_format = require("config.utils").conform_format
+local format_range_operator = require("config.utils").format_range_operator
 vim.keymap.set({ "v" }, "<leader>fc", conform_format, { desc = "Format Selection" })
 vim.keymap.set({ "n" }, "<leader>F", conform_format, { desc = "Format Buffer" })
 vim.keymap.set({ "n" }, "gf", format_range_operator, { desc = "Format Motion" })
@@ -58,8 +61,8 @@ vim.keymap.set({ "n" }, "gf", format_range_operator, { desc = "Format Motion" })
 -- Lazygit
 bind("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
 
--- Oil
-bind("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- -- Oil
+-- bind("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Refactoring
 bind({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
@@ -72,7 +75,7 @@ if vim.lsp.inlay_hint then
 end
 
 -- Copy link to current file and position in git
-bind("n", "<leader>lk", require("joermo.config.utils").copyFilePathAndLineNumber, { desc = "LSP Info" })
+bind("n", "<leader>lk", require("config.utils").copyFilePathAndLineNumber, { desc = "LSP Info" })
 
 -- Undotree
 bind("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Open Undotree" })

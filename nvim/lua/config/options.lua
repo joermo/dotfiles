@@ -1,11 +1,14 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 local g = vim.g
 local o = vim.o
 
 o.tabstop = 2
 o.shiftwidth = 2
+o.relativenumber = true
 o.softtabstop = 2
 o.expandtab = true
-o.relativenumber = true
 o.nu = true
 -- o.hidden = true
 -- o.hidden = false -- todo re-enable this in case of any error
@@ -55,4 +58,4 @@ vim.opt.fillchars = {
 vim.opt.listchars = { tab = "▸ ", trail = "·" }
 vim.opt.timeoutlen = 1000
 
-vim.cmd("set notermsync")  -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij
+vim.cmd("set notermsync") -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij

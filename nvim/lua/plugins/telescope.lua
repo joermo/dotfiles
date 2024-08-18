@@ -1,3 +1,4 @@
+local actions = require("telescope.actions")
 return {
   "nvim-telescope/telescope.nvim",
   keys = {
@@ -14,24 +15,8 @@ return {
       end,
       desc = "Live grep across open files",
     },
-    {
-      "<leader>o",
-      function()
-        require("telescope.builtin").lsp_document_symbols({})
-      end,
-      desc = "Document Symbols",
-    },
-    {
-      "<leader>O",
-      function()
-        require("telescope.builtin").lsp_workspace_symbols({})
-      end,
-      desc = "Workspace Symbols",
-    },
   },
-
   opts = function()
-    local actions = require("telescope.actions")
     return {
       defaults = {
         mappings = {
@@ -43,13 +28,8 @@ return {
             ["<C-s>"] = actions.send_selected_to_qflist,
             ["<C-q>"] = actions.send_to_qflist,
           },
-          n = {
-            ["qq"] = actions.close,
-            ["q"] = actions.close,
-          },
         },
       },
-      file_ignore_patterns = { "./node_modules/*", "node_modules", "^node_modules/*", "node_modules/*" },
     }
   end,
 }

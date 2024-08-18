@@ -1,3 +1,8 @@
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+-- Add any additional autocmds here
+
+-- Helper for augroups
 local function augroup(name)
   return vim.api.nvim_create_augroup("joermo_" .. name, { clear = true })
 end
@@ -7,17 +12,14 @@ vim.cmd([[au BufRead,BufNewFile .bashrc set filetype=bash]])
 vim.cmd([[au BufRead,BufNewFile .zshrc set filetype=sh]])
 vim.cmd([[au BufRead,BufNewFile zsh set filetype=sh]])
 
--- Disable diagnostics for .env files
-local group = vim.api.nvim_create_augroup("__env", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*.env", ".env*" },
-  group = group,
-  callback = function(args)
-    vim.diagnostic.enable(false, { bufnr = args.buf })
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vim.api.nvim_create_augroup("NVIM_TREE", { clear = true }),
+--   pattern = "NvimTree",
+--   callback = function()
+--     vim.api.nvim_win_set_option_value(0, "wrap", false)
+--   end,
+-- })
 
--------------------------------------------------------------------------------
 -- Function to highlight yanked text with default visual highlight color
 function OnYank()
   local default_highlight = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
@@ -35,7 +37,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     OnYank()
   end,
 })
--------------------------------------------------------------------------------
 
 -- Disable autoformat for specific extensions
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -73,20 +74,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
   once = true,
 })
-
--- -- Enable autoformatting for lua files
--- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
---   -- pattern = { "lua" },
---   callback = function()
---     print('setting it ')
---     -- disable virtual text for anything non-error
---     vim.diagnostic.config({
---       virtual_text = {
---         min = vim.diagnostic.severity.WARN,
---       },
---     })
---   end,
--- })
 
 -- Given diagnostic types are (in inc. severity):  Hint, Info, Warn, Error
 -- Disable underline diagnostics for anything above INFO
