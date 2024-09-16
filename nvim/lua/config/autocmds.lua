@@ -90,3 +90,17 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     })
   end,
 })
+
+-- If a directory is open, check for a file named .local-nvim-opts.lua.
+-- If the file exists, source all its contents.
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local local_opts_path = vim.fn.getcwd() .. "/.local-nvim-opts.lua"
+    if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
+      if vim.fn.filereadable(local_opts_path) == 1 then
+        vim.print("sourcing")
+        dofile(local_opts_path)
+      end
+    end
+  end,
+})

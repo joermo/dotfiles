@@ -12,7 +12,7 @@ local lsp_ensure_installed = {
   -- "pyright",
   "ruff",
   "marksman",
-  "asdfasdfasdfa",
+  "yamlls",
 }
 
 local tools_ensure_installed = {

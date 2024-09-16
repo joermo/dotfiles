@@ -6,6 +6,7 @@ return {
   -- { "loctvl842/monokai-pro.nvim" },
   -- { "ku1ik/vim-monokai" },
   { "catppuccin/nvim" },
+  -- { "xero/evangelion.nvim" },
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
@@ -16,6 +17,7 @@ return {
       -- colorscheme = "monokai-pro",
       -- colorscheme = "monokai",
       colorscheme = "catppuccin-mocha",
+      -- colorscheme = "evangelion",
     },
   },
 }
