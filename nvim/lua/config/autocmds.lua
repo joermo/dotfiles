@@ -91,11 +91,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
   end,
 })
 
--- If a directory is open, check for a file named .local-nvim-opts.lua.
+-- If a directory is open, check for a file named local-nvim-opts.lua.
 -- If the file exists, source all its contents.
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    local local_opts_path = vim.fn.getcwd() .. "/.local-nvim-opts.lua"
+    local local_opts_path = vim.fn.getcwd() .. "/local-nvim-opts.lua"
     if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
       if vim.fn.filereadable(local_opts_path) == 1 then
         vim.print("sourcing")
@@ -104,3 +104,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- Add additional patterns for docker compose language server filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "docker-compose*.yml", "docker-compose*.yaml" },
+  callback = function()
+    vim.bo.filetype = "yaml.docker-compose"
+  end,
+})
+
+-- Add autocommand to show macro recording status below status line
+vim.cmd([[ autocmd RecordingEnter * set cmdheight=1 ]])
+vim.cmd([[ autocmd RecordingLeave * set cmdheight=0 ]])

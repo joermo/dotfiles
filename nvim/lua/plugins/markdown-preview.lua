@@ -22,6 +22,7 @@ return {
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   build = "cd app && npm install",
   init = function()
+    vim.g.mkdp_port = "8888"
     vim.g.mkdp_filetypes = { "markdown" }
   end,
   ft = { "markdown" },

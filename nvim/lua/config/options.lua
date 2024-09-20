@@ -60,6 +60,7 @@ vim.opt.timeoutlen = 1000
 
 vim.cmd("set notermsync") -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij
 
+-- Add fix for clipboard usage through WSL
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "WslClipboard",

@@ -1,7 +1,7 @@
 local lsp_ensure_installed = {
   "tsserver",
   "html",
-  -- "css",
+  "css",
   "tailwindcss",
   "svelte",
   "lua_ls",
