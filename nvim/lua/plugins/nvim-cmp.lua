@@ -1,6 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
   opts = {
-    auto_brackets = { "python" },
+    -- auto_brackets = { "python" },
   },
 }
