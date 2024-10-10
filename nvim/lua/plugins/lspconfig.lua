@@ -26,6 +26,12 @@ return {
           },
         },
       },
+      setup = {
+        -- set up rust analyzer override to not automatically configure as per LazyVim docs
+        rust_analyzer = function()
+          return true
+        end,
+      },
     },
   },
 }
