@@ -15,6 +15,7 @@ local lsp_ensure_installed = {
   "yaml-language-server",
   "rust-analyzer",
   "ansible-language-server",
+  -- "terraform-ls",
 }
 
 local tools_ensure_installed = {

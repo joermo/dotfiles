@@ -23,6 +23,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.json" },
     (vim.fn.executable("go") and { import = "lazyvim.plugins.extras.lang.go" } or {}),
     (vim.fn.executable("cargo") and { import = "lazyvim.plugins.extras.lang.rust" } or {}),
+    (vim.fn.executable("terraform") and { import = "lazyvim.plugins.extras.lang.terraform" } or {}),
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
