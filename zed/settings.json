@@ -1,0 +1,43 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "theme": "Gruvbox Dark",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "cursor_blink": false,
+  "cursor_shape": "block",
+  "vim": {
+    // "use_system_clipboard": "never",
+    "use_multiline_find": true,
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": false
+  }
+  // "lsp": {
+  //   "pyright": {
+  //     "settings": {
+  //       "python.analysis": {
+  //         "diagnosticMode": "workspace",
+  //         "typeCheckingMode": "strict"
+  //       },
+  //       "python": {
+  //         "pythonPath": ".venv/bin/python"
+  //       }
+  //     }
+  //   }
+  // }
+}
