@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+
+# Utility:
+strip_colors() {
+  output=$("$@" 2>&1 | sed -r 's/\x1B\[[0-9;]*m//g')
+  echo "$output"
+}
+
 # Base template: https://github.com/dreamsofautonomy/zensh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -25,8 +32,8 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source/Load zinit
@@ -98,23 +105,44 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias v="$(command -v vim)"
 alias ls='ls --color'
 alias c='clear'
-alias zj='zellij options --default-layout compact'
-# alias nvim='$HOME/Documents/programs/nvim.appimage'
+# alias zj='zellij'
+
 vim() {
-    arg_count="$#"
-    if [[ arg_count -eq 0 ]]; then
-        nvim
-    elif [[ arg_count -eq 1 ]]; then
-        file="$1"
-        if [ -d "$file" ]; then
-            cd "$file" && nvim "$file" && cd "--" || return
-        else
-            nvim "$file"
-        fi
-    else # more than 1 arg
-        nvim "${@}"
+  arg_count="$#"
+  if [[ arg_count -eq 0 ]]; then
+    nvim
+  elif [[ arg_count -eq 1 ]]; then
+    file="$1"
+    if [ -d "$file" ]; then
+      cd "$file" && nvim "$file" && cd "--" || return
+    else
+      nvim "$file"
     fi
+  else # more than 1 arg
+    nvim "${@}"
+  fi
 }
+
+
+# Helper function/alias to default to session called "main" and to enable fzf-based session selection when attaching
+zj() {
+  arg_1="${1:-null}"
+  arg_count="$#"
+  session_name="${2:-main}"
+  if [[ arg_count -eq 0 ]]; then
+    zellij attach --create "$session_name"
+  elif [[ "$arg_1" = "attach" || "$arg_1" = "a" ]]; then
+    if [[ arg_count -eq 1 ]];  then
+      selection=$(zellij list-sessions | awk '{ print $1 }' | strip_colors | sort | fzf --height 30%)
+      zellij attach "$selection"
+    else
+      zellij attach --create "$session_name"
+    fi
+  else
+    zellij "$@"
+  fi
+}
+
 alias kc='kubectl'
 alias lg='lazygit'
 export EDITOR='nvim'
@@ -123,6 +151,7 @@ if [[  $(command -v xclip | wc -l) -eq 1  ]]; then
   alias copy='xclip -selection clipboard'
   alias paste='xclip -selection clipboard -o'
 fi
+alias curbr='git branch --show-current'
 
 
 # Shell integrations
@@ -140,21 +169,26 @@ export PATH="$HOME/.local/bin:$PATH" # Poetry path
 
 
 lazy_load_node_npm() {
-    unset -f node npm nvm
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  unset -f node npm nvm
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
 node() {
-    lazy_load_node_npm && node "$@"
+  lazy_load_node_npm && node "$@"
 }
 npm() {
-    lazy_load_node_npm && node "$@"
+  lazy_load_node_npm && node "$@"
 }
 nvm() {
-    lazy_load_node_npm && node "$@"
+  lazy_load_node_npm && node "$@"
 }
 
 
 export TERM=xterm-256color # for compatibility when SSH into remotes
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
