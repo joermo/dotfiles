@@ -14,20 +14,36 @@ if vim.fn.executable("rg") == 1 then
   vim.o.grepprg = "rg --vimgrep --hidden --glob ‘!.git’"
 end
 
+local spec = {
+  -- add LazyVim and import its plugins
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+  -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+  -- import/override with your plugins
+  { import = "plugins" },
+}
+
+local function add_conditional_extras(spec, extras)
+  for extra, condition in pairs(extras) do
+    if condition == "" or vim.fn.executable(condition) then
+      table.insert(spec, { import = "lazyvim.plugins.extras.lang." .. extra })
+    end
+  end
+end
+
+local lazy_extras = {
+  json = "",
+  typescript = "",
+  go = "go",
+  rust = "cargo",
+  terraform = "terraform",
+  python = "python",
+  markdown = "",
+}
+
+add_conditional_extras(spec, lazy_extras)
+
 require("lazy").setup({
-  spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    (vim.fn.executable("go") and { import = "lazyvim.plugins.extras.lang.go" } or {}),
-    (vim.fn.executable("cargo") and { import = "lazyvim.plugins.extras.lang.rust" } or {}),
-    (vim.fn.executable("terraform") and { import = "lazyvim.plugins.extras.lang.terraform" } or {}),
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- import/override with your plugins
-    { import = "plugins" },
-  },
+  spec = spec,
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

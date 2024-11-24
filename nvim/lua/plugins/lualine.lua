@@ -1,5 +1,3 @@
-local last_message = ""
-
 local function get_recent_message()
   local cur_time = os.time() * 1000
   local elapsed_time = cur_time - _G.last_msg_time
