@@ -1,17 +1,54 @@
--- Override the functionality for vim.notify to store the last message and last message time.
+-- Override the functionality for vim api functions to store the passed message param and timestamp in global variables.
 -- This helps pull messages to display in lualine for a set time interval.
 
-local original_notify = vim.notify
+local util = require("config.utils")
+
+local include_levels = {
+  vim.log.levels.TRACE,
+  vim.log.levels.DEBUG,
+  vim.log.levels.INFO,
+  vim.log.levels.WARN,
+  vim.log.levels.ERROR,
+  vim.log.levels.OFF,
+}
 
 _G.last_msg = nil
 _G.last_msg_time = nil
 
-vim.notify = function(msg, level, opts)
-  _G.last_msg = msg
-  _G.last_msg_time = (os.time() * 1000)
-  original_notify(msg, level, opts)
+local function override_functions(parent_module, functions, custom_logic)
+  local split_module = util.split_string(parent_module, ".")
+  local original_functions = {}
+  local module = _G[split_module[1]]
+  for i = 2, #split_module do
+    module = module[split_module[i]]
+  end
+  for _, func_name in ipairs(functions) do
+    original_functions[func_name] = module[func_name]
+    module[func_name] = function(...)
+      custom_logic(...)
+      original_functions[func_name](...)
+    end
+  end
 end
 
+local function store_message(message, level)
+  if level == nil then
+    level = vim.log.levels.WARN
+  end
+  if util.contains(include_levels, level) then
+    _G.last_msg = message
+    _G.last_msg_time = (os.time() * 1000)
+  end
+end
+
+override_functions("vim", { "notify", "notify_once" }, store_message)
+
+override_functions("vim.api", {
+  "nvim_err_writeln",
+  "nvim_err_write",
+}, store_message)
+
+-- --------------------------------------------------------------------------------------------------------------
 -- -- Use a timer-based approach to conditionally set cmdheight when new messages are received.
 -- local function set_cmdheight(height)
 --   if height == nil then
@@ -37,3 +74,4 @@ end
 --   start_or_reset_timer(5000)
 --   original_notify(msg, level, opts)
 -- end
+-- --------------------------------------------------------------------------------------------------------------

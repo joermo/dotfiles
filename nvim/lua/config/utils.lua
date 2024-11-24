@@ -60,4 +60,23 @@ M.format_range_operator = function()
   vim.api.nvim_feedkeys("g@", "n", false)
 end
 
+-- List contains helper
+M.contains = function(list, value)
+  for _, v in ipairs(list) do
+    if v == value then
+      return true
+    end
+  end
+  return false
+end
+
+-- String split helper
+M.split_string = function(str, delimiter)
+  local result = {}
+  for word in string.gmatch(str, "([^" .. delimiter .. "]+)") do
+    table.insert(result, word)
+  end
+  return result
+end
+
 return M

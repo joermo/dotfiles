@@ -12,10 +12,12 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  -- dependencies = { 'nvim-tree/nvim-web-devicons' }
-  opts = {
-    sections = {
-      lualine_x = { get_recent_message },
-    },
-  },
+  -- opts = {
+  --   sections = {
+  --     lualine_x = { get_recent_message },
+  --   },
+  -- },
+  opts = function(_, opts)
+    table.insert(opts.sections.lualine_c, get_recent_message)
+  end,
 }
