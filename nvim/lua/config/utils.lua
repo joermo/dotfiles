@@ -79,4 +79,39 @@ M.split_string = function(str, delimiter)
   return result
 end
 
+if not table.pack then
+  table.pack = function(...)
+    return { n = select("#", ...), ... }
+  end
+end
+
+if not table.unpack then
+  table.unpack = unpack
+end
+
+M.table_to_str = function(tbl)
+  local result = {}
+  -- Helper function to handle nested tables
+  local function serialize(val)
+    if type(val) == "table" then
+      local subResult = {}
+      for key, value in pairs(val) do
+        local keyStr = type(key) == "string" and string.format("%q", key) or tostring(key)
+        table.insert(subResult, keyStr .. " = " .. serialize(value))
+      end
+      return "{" .. table.concat(subResult, ", ") .. "}"
+    elseif type(val) == "string" then
+      return string.format("%q", val) -- Properly escape strings
+    else
+      return tostring(val)
+    end
+  end
+  -- Start the table serialization
+  for key, value in pairs(tbl) do
+    local keyStr = type(key) == "string" and string.format("%q", key) or tostring(key)
+    table.insert(result, keyStr .. " = " .. serialize(value))
+  end
+  return "{" .. table.concat(result, ", ") .. "}"
+end
+
 return M

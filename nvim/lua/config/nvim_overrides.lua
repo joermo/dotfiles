@@ -25,19 +25,24 @@ local function override_functions(parent_module, functions, custom_logic)
   for _, func_name in ipairs(functions) do
     original_functions[func_name] = module[func_name]
     module[func_name] = function(...)
-      custom_logic(...)
-      original_functions[func_name](...)
+      local original_function = original_functions[func_name]
+      custom_logic(original_function, { ... })
     end
   end
 end
 
-local function store_message(message, level)
-  if level == nil then
-    level = vim.log.levels.WARN
-  end
+local function store_message(orig_func, orig_args)
+  local message = orig_args[1]
+  local level = orig_args[2] or vim.log.levels.INFO
+  local opts = orig_args[3] or {}
+  local msg_title = opts["title"] or ""
   if util.contains(include_levels, level) then
     _G.last_msg = message
     _G.last_msg_time = (os.time() * 1000)
+  end
+  if msg_title ~= "VenvSelect" then
+    orig_args[1] = "test..." .. message
+    orig_func(table.unpack(orig_args, 1, orig_args.n))
   end
 end
 
