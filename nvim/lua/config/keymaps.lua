@@ -3,6 +3,7 @@
 -- -- Add any additional keymaps here
 vim.g.mapleader = " "
 local bind = vim.keymap.set
+local utils = require("config.utils")
 
 -- Default
 bind("i", "kj", "<Esc>")
@@ -20,7 +21,12 @@ bind("n", "<Leader>ws", "<CMD>split<CR>")
 -- Buffers
 bind({ "n" }, "H", "<CMD>bprevious<CR>")
 bind({ "n" }, "L", "<CMD>bnext<CR>")
-bind({ "n" }, "<leader>Q", "<CMD>silent!%bd|e#<CR>", { desc = "Close all buffers except current" })
+bind("n", "<leader>Q", function()
+  utils.close_all_buffers_but_current_and_provided({ "NvimTree", "FTerm" })
+end, { desc = "Close all buffers except the current" })
+bind("n", "<leader>bi", function()
+  utils.get_buf_summary()
+end, { desc = "Print a summary about the current buffer" })
 
 -- File tree
 bind("n", "<C-n>", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })

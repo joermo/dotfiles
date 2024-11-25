@@ -114,4 +114,39 @@ M.table_to_str = function(tbl)
   return "{" .. table.concat(result, ", ") .. "}"
 end
 
+M.close_all_buffers_but_current_and_provided = function(keep_types)
+  local buffers = vim.api.nvim_list_bufs()
+  vim.notify("buffer is" .. buffers[1])
+  local current_buf = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(buffers) do
+    -- local buf_type = vim.api.nvim_buf_get_option(buf, "filetype") or ""
+    local buf_type = vim.api.nvim_get_option_value("filetype", { buf = buf })
+    local keep_buf = M.contains(keep_types, buf_type) or buf == current_buf
+    if not keep_buf then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end
+
+M.get_buf_summary = function()
+  local buf_info = {}
+  buf_info.buffer_number = vim.api.nvim_get_current_buf()
+  buf_info.name = vim.api.nvim_buf_get_name(buf_info.buffer_number)
+  buf_info.filetype = vim.api.nvim_get_option_value("filetype", { buf = buf_info.buffer_number })
+  buf_info.line_count = vim.api.nvim_buf_line_count(buf_info.buffer_number)
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  buf_info.cursor_line = cursor_pos[1]
+  buf_info.cursor_column = cursor_pos[2]
+  buf_info.is_modified = vim.api.nvim_get_option_value("modified", { buf = buf_info.buffer_number })
+  buf_info.is_readonly = vim.api.nvim_get_option_value("readonly", { buf = buf_info.buffer_number })
+  print("Buffer Information:")
+  print("  Buffer Number: " .. buf_info.buffer_number)
+  print("  Name: " .. buf_info.name)
+  print("  Filetype: " .. buf_info.filetype)
+  print("  Line Count: " .. buf_info.line_count)
+  print("  Cursor Position: Line " .. buf_info.cursor_line .. ", Column " .. buf_info.cursor_column)
+  print("  Modified: " .. tostring(buf_info.is_modified))
+  print("  Readonly: " .. tostring(buf_info.is_readonly))
+end
+
 return M
