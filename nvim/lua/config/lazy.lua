@@ -6,10 +6,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-function IsOnPath()
-  vim.fn.executable("rg")
-end
-
 if vim.fn.executable("rg") == 1 then
   vim.o.grepprg = "rg --vimgrep --hidden --glob ‘!.git’"
 end
@@ -24,7 +20,7 @@ local spec = {
 
 local function add_conditional_extras(spec, extras)
   for extra, condition in pairs(extras) do
-    if condition == "" or vim.fn.executable(condition) then
+    if condition == "" or vim.fn.executable(condition) == 1 then
       table.insert(spec, { import = "lazyvim.plugins.extras.lang." .. extra })
     end
   end
