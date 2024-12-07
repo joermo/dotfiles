@@ -1,3 +1,8 @@
+local bind = vim.keymap.set
+
+bind("n", "<Leader>t", "<CMD>Trouble<CR>")
+bind("n", "qf", "<CMD>Trouble quickfix<CR>")
+
 return {
   "folke/trouble.nvim",
   opts = {}, -- for default options, refer to the configuration section for custom setup.

@@ -1,12 +1,10 @@
--- for monokai
-
--- return {
---   "rose-pine/neovim",
---   name = "rose-pine",
---   config = function()
---     vim.cmd("colorscheme rose-pine-main")
---   end
--- }
+return {
+  "rose-pine/neovim",
+  name = "rose-pine",
+  config = function()
+    vim.cmd("colorscheme rose-pine-main")
+  end
+}
 
 -- -- For monokai
 -- return {
@@ -17,13 +15,13 @@
 --   end
 -- }
 
--- for catppuccin
-return {
-  "catppuccin/nvim",
-  config = function()
-    vim.cmd("colorscheme catppuccin-mocha")
-  end,
-}
+-- -- for catppuccin
+-- return {
+--   "catppuccin/nvim",
+--   config = function()
+--     vim.cmd("colorscheme catppuccin-mocha")
+--   end,
+-- }
 
 -- -- for flexoki
 -- return {

@@ -55,4 +55,4 @@ vim.opt.fillchars = {
 vim.opt.listchars = { tab = "▸ ", trail = "·" }
 vim.opt.timeoutlen = 1000
 
-vim.cmd("set notermsync")  -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij
+vim.cmd("set notermsync") -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij

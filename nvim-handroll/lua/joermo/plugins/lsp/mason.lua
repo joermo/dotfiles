@@ -1,5 +1,5 @@
 local lsp_ensure_installed = {
-  "tsserver",
+  "ts_ls",
   "html",
   "cssls",
   "tailwindcss",
@@ -46,6 +46,7 @@ return {
       },
     })
     mason_lspconfig.setup({
+      automatic_installation = true,
       ensure_installed = lsp_ensure_installed,
     })
 

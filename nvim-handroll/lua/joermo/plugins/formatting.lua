@@ -1,9 +1,20 @@
+local bind = vim.keymap.set
+
+bind({ "v" }, "<leader>fc", function()
+  require("joermo.config.utils").conform_format()
+end, { desc = "Format Selection" })
+bind({ "n" }, "<leader>F", function()
+  require("joermo.config.utils").conform_format()
+end, { desc = "Format Buffer" })
+bind({ "n" }, "gf", function()
+  require("joermo.config.utils").format_range_operator()
+end, { desc = "Format Motion" })
+
 return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
-
     conform.setup({
       formatters_by_ft = {
         javascript = { "prettier" },
@@ -32,34 +43,4 @@ return {
       -- },
     })
   end,
-
-  joermo_format_utils = {
-    -- Custom function to invoke conform formatting
-    conform_format = function()
-      local conform = require("conform")
-      conform.format({
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      })
-    end,
-    -- Custom function to format by range via objects and motions
-    format_range_operator = function()
-      local conform = require("conform")
-      local old_func = vim.go.operatorfunc
-      _G.op_func_formatting = function()
-        local opts = {
-          range = {
-            ["start"] = vim.api.nvim_buf_get_mark(0, "["),
-            ["end"] = vim.api.nvim_buf_get_mark(0, "]"),
-          },
-        }
-        conform.format(opts)
-        vim.go.operatorfunc = old_func
-        _G.op_func_formatting = nil
-      end
-      vim.go.operatorfunc = "v:lua.op_func_formatting"
-      vim.api.nvim_feedkeys("g@", "n", false)
-    end,
-  },
 }

@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -------------------------------------------------------------------------------
--- Function to highlight yanked text with default visual highlight color
+-- Function to highlight yanked text with default visual highlight color (cleaner looking)
 function OnYank()
   local default_highlight = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
   vim.highlight.on_yank({
@@ -61,33 +61,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- Automatically source the cached venv
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Auto select virtualenv Nvim open",
-  pattern = "*",
-  callback = function()
-    local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
-    if venv ~= "" then
-      vim.cmd([[silent! lua require('venv-selector').retrieve_from_cache()]])
-    end
-  end,
-  once = true,
-})
-
--- -- Enable autoformatting for lua files
--- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
---   -- pattern = { "lua" },
---   callback = function()
---     print('setting it ')
---     -- disable virtual text for anything non-error
---     vim.diagnostic.config({
---       virtual_text = {
---         min = vim.diagnostic.severity.WARN,
---       },
---     })
---   end,
--- })
-
 -- Given diagnostic types are (in inc. severity):  Hint, Info, Warn, Error
 -- Disable underline diagnostics for anything above INFO
 -- Disable virtual text diagnostics for anything below WARN
@@ -101,5 +74,28 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         severity = { min = vim.diagnostic.severity.WARN },
       },
     })
+  end,
+})
+
+-- TODO: refactor to use the nvim builtin for this
+-- If a directory is open, check for a file named local-nvim-opts.lua.
+-- If the file exists, source all its contents.
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local local_opts_path = vim.fn.getcwd() .. "/local-nvim-opts.lua"
+    if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
+      if vim.fn.filereadable(local_opts_path) == 1 then
+        vim.print("sourcing")
+        dofile(local_opts_path)
+      end
+    end
+  end,
+})
+
+-- Add additional patterns for docker compose language server filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "docker-compose*.yml", "docker-compose*.yaml" },
+  callback = function()
+    vim.bo.filetype = "yaml.docker-compose"
   end,
 })

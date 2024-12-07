@@ -1,4 +1,10 @@
--- return {}
+local bind = vim.keymap.set
+
+-- bind("n", "<C-n>", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
+-- bind("n", "tf", vim.cmd.NvimTreeFindFile, { desc = "Reveal current file in file tree" })
+bind("n", "<C-n>", "<CMD>Neotree toggle<CR>", { desc = "Toggle file tree" })
+bind("n", "tf", "<CMD>Neotree reveal<CR>", { desc = "Reveal current file in file tree" })
+
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
@@ -30,6 +36,7 @@ return {
     },
     window = {
       mappings = {
+        -- Custom mapping to copy the name/path of the current file by selection.
         ["Y"] = function(state)
           -- NeoTree is based on [NuiTree](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree)
           -- The node is based on [NuiNode](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree#nuitreenode)

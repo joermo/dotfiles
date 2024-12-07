@@ -2,8 +2,7 @@ return {
   "linux-cultist/venv-selector.nvim",
   branch = "regexp",
   config = function()
-    require('venv-selector').setup({
-      notify_user_on_activate = true
-    })
-  end
+    local venv_selector = require("venv-selector")
+    venv_selector.setup({})
+  end,
 }

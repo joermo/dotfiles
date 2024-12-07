@@ -11,13 +11,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({{ import = "joermo.plugins" }, { import = "joermo.plugins.lsp" },},
-  {
-    checker = {
-      enabled = false,
-      notify = false,
-    },
-    change_detection = {
-      notify = false,
-    },
-  })
+local specs = {
+  { import = "joermo.plugins" },
+  { import = "joermo.plugins.lsp" },
+  { import = "joermo.plugins.ui" },
+}
+
+require("lazy").setup(specs, {
+  checker = {
+    enabled = false,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
+})

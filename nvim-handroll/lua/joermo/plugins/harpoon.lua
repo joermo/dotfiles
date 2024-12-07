@@ -35,5 +35,11 @@ return {
     -- Toggle previous & next buffers stored within Harpoon list
     bind("n", "<C-S-P>", function() harpoon:list():prev() end, { desc="Switch to next harpooned file" })
     bind("n", "<C-S-N>", function() harpoon:list():next() end, { desc="Switch to previous harpooned file" })
+
+    -- Manually set indices
+    bind("n", "<leader>1", function() harpoon:list():replace_at(1) end, { desc="Set harpoon idx 1" })
+    bind("n", "<leader>2", function() harpoon:list():replace_at(2) end, { desc="Set harpoon idx 2" })
+    bind("n", "<leader>3", function() harpoon:list():replace_at(3) end, { desc="Set harpoon idx 3" })
+    bind("n", "<leader>4", function() harpoon:list():replace_at(4) end, { desc="Set harpoon idx 4" })
   end
 }

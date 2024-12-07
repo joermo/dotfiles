@@ -1,3 +1,7 @@
+local bind = vim.keymap.set
+
+bind("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
+
 return {
   "kdheepak/lazygit.nvim",
   cmd = {
@@ -9,6 +13,7 @@ return {
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-  },
+  }
 }
+
 

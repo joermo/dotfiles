@@ -20,7 +20,7 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    require("neodev").setup({}) -- must be set up first, else error with keybind resets
+    -- require("neodev").setup({}) -- must be set up first, else error with keybind resets
     local lspconfig = require("lspconfig")
     local mason_lspconfig = require("mason-lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -35,7 +35,7 @@ return {
       signs = true,
       underline = true,
       update_in_insert = false,
-      severity_sort = false,
+      severity_sort = true,
     })
 
     local ruff = "ruff_lsp"
