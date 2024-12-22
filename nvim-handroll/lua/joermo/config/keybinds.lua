@@ -22,13 +22,15 @@ bind("n", "<leader>Q", function()
   utils.close_all_buffers_but_current_and_provided({ "NvimTree", "FTerm", "neo-tree" })
 end, { desc = "Close all buffers except the current" })
 bind("n", "<leader>bi", function()
-  utils.get_buf_summary()
+  utils.print_buf_summary()
 end, { desc = "Print a summary about the current buffer" })
 
 -- Misc
 bind("v", "<leader>j", "J")
 -- bind("v", "J", ":m '>+1<CR>gv=gv")
 -- bind("v", "K", ":m '<-2<CR>gv=gv")
+bind("v", "<", "<gv")
+bind("v", ">", ">gv")
 bind("x", "<leader>p", '"_dP')
 bind("n", "J", "mzJ`z")
 bind("n", "<C-d>", "<C-d>zz")
@@ -40,7 +42,6 @@ bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
   desc = "chmod +x the current file",
 })
 
--- Inlay Hints
 
 -- Utils-----------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ bind("n", "gK", vim.lsp.buf.signature_help)
 bind("n", "<leader>cA", function()
   vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
 end)
-bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSPP" })
+bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
 bind("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" }) -- jump to previous diagnostic in buffer
 bind("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" }) -- jump to next diagnostic in buffer
 bind("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file

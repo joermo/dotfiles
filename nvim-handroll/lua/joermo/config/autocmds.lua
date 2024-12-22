@@ -1,6 +1,6 @@
-local function augroup(name)
-  return vim.api.nvim_create_augroup("joermo_" .. name, { clear = true })
-end
+-- Add autocommand to show macro recording status below status line
+vim.cmd([[ autocmd RecordingEnter * set cmdheight=1 ]])
+vim.cmd([[ autocmd RecordingLeave * set cmdheight=0 ]])
 
 -- Set behavior for specific file patterns
 vim.cmd([[au BufRead,BufNewFile .bashrc set filetype=bash]])
@@ -17,22 +17,22 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--------------------------------------------------------------------------------
--- Function to highlight yanked text with default visual highlight color (cleaner looking)
-function OnYank()
-  local default_highlight = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
-  vim.highlight.on_yank({
-    higroup = "Visual",
-    timeout = 100,
-    on_visual = true,
-    hl_default = default_highlight,
-  })
-end
--- Highlight on yank
+-- Custom yank highlighting ----------------------------------------------------
+-- local hl_bg_color = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg")
+local hl_bg_color = "#6600FF"
+local hl_fg_color = nil -- "#FFFFFF"
+local hl_opts = {
+  bg = hl_bg_color,
+  fg = hl_fg_color
+}
+vim.api.nvim_set_hl(0, "YankHighlight", hl_opts)
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
+  group = vim.api.nvim_create_augroup("HighlightYank", {}),
   callback = function()
-    OnYank()
+    vim.highlight.on_yank({
+      higroup = "YankHighlight",
+      timeout = 100,
+    })
   end,
 })
 -------------------------------------------------------------------------------
@@ -74,21 +74,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         severity = { min = vim.diagnostic.severity.WARN },
       },
     })
-  end,
-})
-
--- TODO: refactor to use the nvim builtin for this
--- If a directory is open, check for a file named local-nvim-opts.lua.
--- If the file exists, source all its contents.
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    local local_opts_path = vim.fn.getcwd() .. "/local-nvim-opts.lua"
-    if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
-      if vim.fn.filereadable(local_opts_path) == 1 then
-        vim.print("sourcing")
-        dofile(local_opts_path)
-      end
-    end
   end,
 })
 

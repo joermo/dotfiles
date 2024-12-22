@@ -1,3 +1,9 @@
+local bind = vim.keymap.set
+
+bind("n", "<leader>lg", function()
+  Snacks.lazygit.open()
+end, { desc = "Open Lazygit" })
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -9,7 +15,8 @@ return {
     bigfile = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
+    -- statuscolumn = { enabled = true },
     words = { enabled = true },
+    lazygit = { enabled = true },
   },
 }

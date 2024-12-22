@@ -9,9 +9,9 @@ local lsp_ensure_installed = {
   "emmet_ls",
   "prismals",
   "basedpyright",
-  -- "pyright",
   "ruff",
   "marksman",
+  -- "rust_analyzer"
 }
 
 local tools_ensure_installed = {
@@ -19,7 +19,7 @@ local tools_ensure_installed = {
   "stylua",
   "isort",
   "black",
-  "pylint",
+  -- "pylint",
   "eslint_d",
   "shellcheck",
 }
@@ -49,7 +49,6 @@ return {
       automatic_installation = true,
       ensure_installed = lsp_ensure_installed,
     })
-
     mason_tool_installer.setup({
       ensure_installed = tools_ensure_installed,
     })

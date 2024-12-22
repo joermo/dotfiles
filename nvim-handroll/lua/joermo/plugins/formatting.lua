@@ -26,7 +26,6 @@ return {
         html = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
-        markdown = { "prettier" },
         graphql = { "prettier" },
         liquid = { "prettier" },
         lua = { "stylua" },
@@ -35,6 +34,8 @@ return {
         sh = { "shfmt" },
         zsh = { "shfmt" },
         bash = { "shfmt" },
+        ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+        ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
       },
       -- format_on_save = {
       --   lsp_fallback = true,

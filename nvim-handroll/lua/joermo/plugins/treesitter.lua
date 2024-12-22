@@ -12,7 +12,6 @@ local ts_ensure_installed = {
   "luap",
   "markdown",
   "markdown_inline",
-  "python",
   "query",
   "regex",
   "toml",
@@ -22,7 +21,13 @@ local ts_ensure_installed = {
   "vimdoc",
   "xml",
   "yaml",
+  "go",
+  -- Python:
+  "ninja",
+  "rst",
+  -- Rust
   "rust",
+  "ron",
 }
 
 return {

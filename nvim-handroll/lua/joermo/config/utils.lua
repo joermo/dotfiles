@@ -93,6 +93,11 @@ M.get_buf_summary = function()
   buf_info.cursor_column = cursor_pos[2]
   buf_info.is_modified = vim.api.nvim_get_option_value("modified", { buf = buf_info.buffer_number })
   buf_info.is_readonly = vim.api.nvim_get_option_value("readonly", { buf = buf_info.buffer_number })
+  return buf_info
+end
+
+M.print_buf_summary = function()
+  local buf_info = M.get_buf_summary()
   print("Buffer Information:")
   print("  Buffer Number: " .. buf_info.buffer_number)
   print("  Name: " .. buf_info.name)
@@ -101,6 +106,27 @@ M.get_buf_summary = function()
   print("  Cursor Position: Line " .. buf_info.cursor_line .. ", Column " .. buf_info.cursor_column)
   print("  Modified: " .. tostring(buf_info.is_modified))
   print("  Readonly: " .. tostring(buf_info.is_readonly))
+end
+
+M.get_current_visual_selection = function()
+  return table.concat(vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos(".")), "\n")
+end
+
+M.neotree_get_current_selection = function()
+  local state = require("neo-tree.sources.manager").get_state_for_window()
+  local node = state.tree:get_node()
+  local filepath = node:get_id()
+  return filepath
+end
+
+
+M.neotree_get_closest_dir = function()
+  local cur_file = M.neotree_get_current_selection()
+  if vim.fn.isdirectory(cur_file) ~= 0 then
+    return cur_file
+  else
+    return vim.fn.fnamemodify(cur_file, ":h") -- get parent of current file
+  end
 end
 
 return M
