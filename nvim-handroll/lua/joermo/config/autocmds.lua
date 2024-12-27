@@ -84,3 +84,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "yaml.docker-compose"
   end,
 })
+
+
+-- Set options for markdown
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "markdown" },
+  callback = function()
+    vim.o.wrap = true
+  end,
+})

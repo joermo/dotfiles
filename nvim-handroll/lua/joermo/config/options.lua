@@ -19,6 +19,7 @@ o.colorcolumn = "80"
 o.cmdheight = 0 -- set to 0 to use lualine
 o.updatetime = 50
 o.wrap = false
+o.linebreak = true -- wrap lines at work boundaries
 o.background = "dark"
 o.guicursor = ""
 o.errorbells = false

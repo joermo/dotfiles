@@ -15,6 +15,16 @@ bind("n", "<Leader>wj", "<C-W>j")
 bind("n", "<Leader>wv", "<CMD>vsplit<CR>")
 bind("n", "<Leader>ws", "<CMD>split<CR>")
 
+-- Macros + Editing
+bind(
+  "v",
+  "<leader>ma",
+  [[:'<,'>normal @a<CR>]],
+  { noremap = true, silent = true, desc = "Repeat @a register macro on selected lines (:norm@a)" }
+)
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+
 -- Buffers
 bind({ "n" }, "H", "<CMD>bprevious<CR>")
 bind({ "n" }, "L", "<CMD>bnext<CR>")
@@ -41,7 +51,6 @@ bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
   silent = true,
   desc = "chmod +x the current file",
 })
-
 
 -- Utils-----------------------------------------------------------------------
 

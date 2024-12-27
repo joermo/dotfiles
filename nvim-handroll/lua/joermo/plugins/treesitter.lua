@@ -23,6 +23,7 @@ local ts_ensure_installed = {
   "yaml",
   "go",
   -- Python:
+  "python",
   "ninja",
   "rst",
   -- Rust

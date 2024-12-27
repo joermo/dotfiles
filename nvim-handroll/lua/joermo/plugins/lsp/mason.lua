@@ -9,9 +9,11 @@ local lsp_ensure_installed = {
   "emmet_ls",
   "prismals",
   "basedpyright",
+  -- "pyright",
   "ruff",
   "marksman",
   -- "rust_analyzer"
+  "yamlls",
 }
 
 local tools_ensure_installed = {

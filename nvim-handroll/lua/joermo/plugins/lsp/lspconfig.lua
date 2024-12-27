@@ -28,6 +28,14 @@ return {
           capabilities = capabilities,
         })
       end,
+      ["basedpyright"] = function()
+        lspconfig.basedpyright.setup({
+          capabilities = capabilities,
+          settings = {
+            openFilesOnly
+          }
+        })
+      end,
     })
   end,
   opts = {
@@ -41,3 +49,18 @@ return {
     end,
   },
 }
+
+
+
+          -- settings = {
+          --   python = {
+          --     analysis = {
+          --       typeCheckingMode = "standard",
+          --       autoSearchPaths = true,
+          --       useLibraryCodeForTypes = true,
+          --       diagnosticSeverityOverrides = {
+          --         reportMissingTypeStubs = "none", -- Suppress this specific diagnostic
+          --       },
+          --     },
+          --   },
+          -- },
