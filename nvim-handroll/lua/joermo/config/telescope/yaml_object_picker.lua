@@ -1,9 +1,5 @@
 -- Pulled from: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#fuzzy-search-among-yaml-objects
 
-local pickers = require("telescope.pickers")
-local conf = require("telescope.config").values
-local finders = require("telescope.finders")
-
 local M = {}
 
 M.visit_yaml_node = function(node, name, yaml_path, result, file_path, bufnr)
@@ -70,6 +66,9 @@ M.gen_from_yaml_nodes = function(opts)
 end
 
 M.yaml_symbols = function(opts)
+  local pickers = require("telescope.pickers")
+  local conf = require("telescope.config").values
+  local finders = require("telescope.finders")
   local yaml_path = {}
   local result = {}
   local bufnr = vim.api.nvim_get_current_buf()
