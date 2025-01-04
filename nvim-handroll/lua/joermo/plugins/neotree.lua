@@ -46,6 +46,7 @@ return {
       follow_current_file = {
         enabled = true,
       },
+      hijack_netrw_behavior = "disabled",
       filtered_items = {
         visible = true,
         hide_dotfiles = true,
