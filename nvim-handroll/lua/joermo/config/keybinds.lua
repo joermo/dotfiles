@@ -80,4 +80,19 @@ if vim.lsp.inlay_hint then
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
   end, { desc = "Toggle Inlay Hints" })
 end
+
+-- Add default max width to LSP popups
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or 'none'
+  opts.max_width= opts.max_width or 120
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+---@diagnostic enable
+
+bind("n", "K", function()
+  vim.lsp.buf.hover()
+end)
 ------------------------------------------------------------------------------
