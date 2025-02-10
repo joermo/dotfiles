@@ -47,7 +47,7 @@ M.conform_format = function()
   conform.format({
     lsp_fallback = true,
     async = false,
-    timeout_ms = 1000,
+    timeout_ms = 10000,
   })
 end
 
