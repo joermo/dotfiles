@@ -36,12 +36,19 @@ return {
         bash = { "shfmt" },
         ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
         ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+        sql = { "sqlfluff" },
       },
       -- format_on_save = {
       --   lsp_fallback = true,
       --   async = false,
       --   timeout_ms = 1000,
       -- },
+      formatters = {
+        sqlfluff = {
+          command = "sqlfluff",
+          args = { "format", "-" },
+        },
+      },
     })
   end,
 }

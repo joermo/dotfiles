@@ -8,8 +8,8 @@ local lsp_ensure_installed = {
   "graphql",
   "emmet_ls",
   "prismals",
-  "basedpyright",
-  -- "pyright",
+  -- "basedpyright",
+  "pyright",
   "ruff",
   "marksman",
   -- "rust_analyzer"
@@ -24,6 +24,9 @@ local tools_ensure_installed = {
   -- "pylint",
   "eslint_d",
   "shellcheck",
+  "shfmt",
+  "markdownlint-cli2",
+  "markdown-toc",
 }
 
 return {
