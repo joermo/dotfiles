@@ -21,7 +21,7 @@ local tools_ensure_installed = {
   "stylua",
   "isort",
   "black",
-  -- "pylint",
+  "pylint",
   "eslint_d",
   "shellcheck",
   "shfmt",

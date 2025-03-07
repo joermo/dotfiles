@@ -10,7 +10,7 @@ return {
       javascriptreact = { "eslint_d" },
       typescriptreact = { "eslint_d" },
       -- python = { "pylint" },
-      python = { "ruff" },
+      python = { "ruff", "pylint" },
       sh = { "shellcheck" },
     }
 
