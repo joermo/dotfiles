@@ -34,6 +34,7 @@ if vim.fn.executable('nix-build') == 1 then
     "neovim/nvim-lspconfig",
     dependencies = {
       "saghen/blink.cmp",
+      "williamboman/mason.nvim",
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
@@ -55,6 +56,17 @@ if vim.fn.executable('nix-build') == 1 then
           lspconfig[server].setup(options)
         end
       end
+      -- Still set mason up as an option to install packages not available in nix
+      local mason = require("mason")
+      mason.setup({
+        ui = {
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      })
     end,
     opts = {
       inlay_hints = { enabled = false },
