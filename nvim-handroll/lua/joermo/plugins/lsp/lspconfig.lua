@@ -14,6 +14,7 @@ local servers = {
   "marksman",
   -- "rust_analyzer"
   "yamlls",
+  "markdown-toc"
 }
 
 return {
