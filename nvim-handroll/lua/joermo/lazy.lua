@@ -23,6 +23,7 @@ local specs = {
   { import = "joermo.plugins.ui" },
   { import = "joermo.plugins.qol" },
   { import = "joermo.plugins.telescope" },
+  { import = "joermo.plugins.ai" },
 }
 
 -- require("lazy").setup(specs, {
