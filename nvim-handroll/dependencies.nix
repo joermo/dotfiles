@@ -30,5 +30,6 @@ pkgs.buildEnv {
     marksman
     rust-analyzer
     yaml-language-server
+    beautysh
   ];
 }
