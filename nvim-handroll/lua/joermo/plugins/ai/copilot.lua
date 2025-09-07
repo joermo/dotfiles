@@ -1,5 +1,6 @@
 return {
   "zbirenbaum/copilot.lua",
+  cond = (os.getenv("ENABLE_COPILOT") == "true"),
   cmd = "Copilot",
   build = ":Copilot auth",
   event = "BufReadPost",
