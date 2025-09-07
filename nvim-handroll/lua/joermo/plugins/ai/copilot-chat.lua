@@ -1,5 +1,6 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
+  cond = (os.getenv("ENABLE_COPILOT") == "true"),
   dependencies = {
     { "nvim-lua/plenary.nvim", branch = "master" },
   },
