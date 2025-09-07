@@ -263,6 +263,11 @@
     ];
   };
 
+  # Install fonts here
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
   # Install firefox.
   programs.firefox.enable = true;
   programs.zsh.enable = true;
