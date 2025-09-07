@@ -1,10 +1,10 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
   dependencies = {
-    { "nvim-lua/plenary.nvim", branch = "master" }
+    { "nvim-lua/plenary.nvim", branch = "master" },
   },
   build = "make tiktoken",
-  config = function ()
+  config = function()
     local opts = {}
     local copilot_chat = require("CopilotChat")
     copilot_chat.setup(opts)
@@ -18,5 +18,5 @@ return {
     bind("n", "<leader>ca", function()
       copilot_chat.close()
     end, { desc = "Close GH Copilot Chat" })
-  end
+  end,
 }

@@ -20,12 +20,12 @@ return {
       filetypes = {
         markdown = true,
         help = true,
-      }
+      },
     }
     copilot.setup(opts)
     local bind = vim.keymap.set
     bind("n", "<leader>cp", function()
       require("copilot.panel").toggle()
     end, { desc = "Toggle GH Copilot Suggestion Panel" })
-  end
+  end,
 }
