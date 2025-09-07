@@ -1,3 +1,5 @@
+#!/bin/bash
+
 declare -a dotfiles=(
   ".ideavimrc"
   ".p10k.zsh"
@@ -12,8 +14,16 @@ declare -a dotfile_dirs=(
   "alacritty"
 )
 
+is_env_var_set() {
+    local var_name="$1"
+    if [[ -z "${!var_name+x}" ]]; then
+        return 1
+    fi
+    return 0
+}
+
 is_symlink() {
-  [[ ! -L "$1" ]]
+  [[ -L "$1" ]]
 }
 
 exists() {
@@ -33,7 +43,6 @@ create_link() {
 backup_if_necessary() {
   source="$1"
   if ! exists "$source"; then
-    #echo "$source doesn't exist; skipping"
     return 0
   fi
   if ! is_symlink "$source"; then
@@ -49,8 +58,8 @@ for df in "${dotfiles[@]}"; do
 done
 
 for df in "${dotfile_dirs[@]}"; do
+  # Current daily driver neovim config is nvim-handroll
   if [[ "$df" == "nvim-handroll" ]]; then
-    echo "YES------------------"
     backup_if_necessary "$HOME/.config/nvim"
     create_link "$(pwd)/$df" "$HOME/.config/nvim"
   else
@@ -59,4 +68,9 @@ for df in "${dotfile_dirs[@]}"; do
   fi
 done
 
-echo "$(pwd)"
+# If the current machine is running nixos, symlink the nix configs
+is_env_var_set "NIX_USER_PROFILE_DIR" && {
+  # Must run with elevated permissions on nixos
+  sudo bash -c "$(declare -f is_symlink exists backup_if_necessary); backup_if_necessary /etc/nixos"
+  sudo bash -c "$(declare -f exists create_link); create_link '$(pwd)/nixos' /etc/nixos"
+}
