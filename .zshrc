@@ -151,6 +151,10 @@ if [[  $(command -v xclip | wc -l) -eq 1  ]]; then
   alias copy='xclip -selection clipboard'
   alias paste='xclip -selection clipboard -o'
 fi
+if [[  $(command -v wl-copy | wc -l) -eq 1  ]]; then
+  alias copy='wl-copy'
+  alias paste='wl-paste'
+fi
 alias curbr='git branch --show-current'
 
 
