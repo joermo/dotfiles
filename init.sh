@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO:
+# Look into migrating this to use gnu-stow.
+# Currently not using due to manual symlinks being universally available.
+
 declare -a dotfiles=(
   ".ideavimrc"
   ".p10k.zsh"
