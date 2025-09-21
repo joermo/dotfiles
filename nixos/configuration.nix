@@ -234,6 +234,8 @@
       xdg-utils
       btop
       gnumake
+      kubectl
+      k9s
 
       # ----- Gaming -----
       steam
