@@ -29,6 +29,7 @@ return {
 
     -- Set pylint to work in virtualenv
     require('lint').linters.pylint.cmd = 'python'
-    require('lint').linters.pylint.args = {'-m', 'pylint', '-f', 'json2'}
+    -- require('lint').linters.pylint.args = {'-m', 'pylint', '-f', 'json2'} -- TODO revisit this later; breaking on some machines
+    require('lint').linters.pylint.args = {'-m', 'pylint', '-j', '5'}
   end,
 }
