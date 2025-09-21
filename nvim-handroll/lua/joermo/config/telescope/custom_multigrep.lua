@@ -66,7 +66,6 @@ M.custom_workspace_grep = function(search_type, match_literal, add_opts)
   }
   behavior_per_mode[cur_mode]()
   if search_type == "files" then
-    vim.print(opts)
     telescope.find_files(opts)
   else
     M.live_multigrep(opts)
