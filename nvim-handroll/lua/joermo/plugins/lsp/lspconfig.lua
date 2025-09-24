@@ -32,7 +32,6 @@ return {
   config = function()
     for _, server in ipairs(servers) do
       if lsp_overrides[server] then
-        vim.print(lsp_overrides[server])
         vim.lsp.config(server, lsp_overrides[server])
       end
       vim.lsp.enable(server)
