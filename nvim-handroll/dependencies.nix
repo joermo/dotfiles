@@ -31,5 +31,6 @@ pkgs.buildEnv {
     rust-analyzer
     yaml-language-server
     beautysh
+    basedpyright
   ];
 }
