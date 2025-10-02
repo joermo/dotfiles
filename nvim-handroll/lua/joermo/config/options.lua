@@ -7,6 +7,7 @@ g.maplocalleader = " "
 g.have_nerd_font = true
 g.noerrorbells = true
 g.noswapfile = true
+g.clipboard = 'osc52'
 
 o.mouse = "a" -- enable mouse mode
 o.showmode = false
