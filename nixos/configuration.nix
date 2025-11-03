@@ -136,6 +136,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.joermo = {
     isNormalUser = true;
@@ -236,6 +237,7 @@
       gnumake
       kubectl
       k9s
+      kubernetes-helm
 
       # ----- Gaming -----
       steam
@@ -264,6 +266,12 @@
       #1password-gui
     ];
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "mbedtls-2.28.10"
+    "electron-35.7.5"
+  ];
+
 
   # Install fonts here
   fonts.packages = with pkgs; [
