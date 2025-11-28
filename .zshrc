@@ -53,7 +53,7 @@ zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 # zinit snippet OMZP::archlinux
 # zinit snippet OMZP::aws
-# zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectl
 # zinit snippet OMZP::kubectx
 # zinit snippet OMZP::command-not-found
 
@@ -196,3 +196,11 @@ export TERM=xterm-256color # for compatibility when SSH into remotes
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+
+
+nix_update() {
+  # sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+  # sudo nix-channel --update
+  sudo nix-channel --update
+  sudo nixos-rebuild switch --upgrade
+}
