@@ -7,7 +7,7 @@ g.maplocalleader = " "
 g.have_nerd_font = true
 g.noerrorbells = true
 g.noswapfile = true
-g.clipboard = 'osc52'
+-- g.clipboard = 'osc52' -- TODO: set this conditionally
 
 o.mouse = "a" -- enable mouse mode
 o.showmode = false

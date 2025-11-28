@@ -1,5 +1,6 @@
 {
   "CopilotChat.nvim": { "branch": "main", "commit": "1d8aa27e2317950b0b7ddc023487c6f2b7b074ca" },
+  "LuaSnip": { "branch": "master", "commit": "5a1e39223db9a0498024a77b8441169d260c8c25" },
   "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
   "catppuccin": { "branch": "main", "commit": "76a8d0515024cc55d8bd26fc13f1af88faef3ebf" },
   "conform.nvim": { "branch": "master", "commit": "973f3cb73887d510321653044791d7937c7ec0fa" },
