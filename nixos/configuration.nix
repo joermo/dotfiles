@@ -47,7 +47,7 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
@@ -72,6 +72,11 @@
 
 
   # -------------------------------------------------
+
+  services.openssh = {
+    enable = true;
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -163,7 +168,7 @@
       curl
       wget
       hoppscotch
-      du-dust
+      dust
       rustc
       cargo
       rustup
@@ -186,6 +191,11 @@
       lazygit
       emacs
       ansible
+      tree
+      kustomize
+      fluxcd
+      libudev-zero
+
 
       # ----- Vim specifics -----
       #lua-language-server
@@ -238,6 +248,9 @@
       kubectl
       k9s
       kubernetes-helm
+      chromium
+      tldx
+      protonvpn-gui
 
       # ----- Gaming -----
       steam
@@ -254,7 +267,7 @@
       retroarch-full
       linuxKernel.packages.linux_zen.xone
       heroic
-      ryujinx
+      ryubing
       xivlauncher
 
       # ----- Dev -----
@@ -283,7 +296,7 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   users.users.joermo.shell = pkgs.zsh;
-  programs.ssh.startAgent = true;
+  #programs.ssh.startAgent = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -294,6 +307,9 @@
     wireguard-tools
     wireguard-ui
     #pkgs.home-manager
+
+    pkgs.apacheHttpd
+    openssl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
