@@ -1,0 +1,12 @@
+---
+plugins:
+  view-logs-in-vim:
+    shortCut: Shift-L
+    description: View Pod Logs in Vim
+    command: sh
+    args:
+      - -c
+      # This command tails logs, saves to a temp file, and opens in Vim
+      - "kubectl logs $NAME -n $NAMESPACE --tail=-1 > /tmp/$NAME.log && vim /tmp/$NAME.log"
+    scopes:
+      - pods

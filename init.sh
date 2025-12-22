@@ -16,6 +16,7 @@ declare -a dotfile_dirs=(
   "zellij"
   "kitty"
   "alacritty"
+  "k9s"
 )
 
 is_env_var_set() {
