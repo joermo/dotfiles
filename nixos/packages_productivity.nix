@@ -34,7 +34,6 @@
       hoppscotch
       isort
       kitty
-      kustomize
       lazygit
       libudev-zero
       lsd
@@ -81,8 +80,10 @@
       gnumake
       input-remapper
       k9s
+      kubeconform
       kubectl
       kubernetes-helm
+      kustomize
       localsend
       nextcloud-client
       obs-studio
@@ -94,6 +95,7 @@
       waydroid
       waydroid-helper
       xdg-utils
+      yq-go # official 'yq' cli
 
       # # ----- Non-FOSS -----
       # 1password
