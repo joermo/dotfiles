@@ -76,9 +76,11 @@
       chromium
       clapper
       dbeaver-bin
+      envsubst
       gearlever
       gnumake
       input-remapper
+      jq
       k9s
       kubeconform
       kubectl
@@ -86,11 +88,14 @@
       kustomize
       localsend
       nextcloud-client
+      nushell
       obs-studio
       openrgb
       opentabletdriver
+      opentofu
       ppsspp-sdl-wayland
       protonvpn-gui
+      talosctl
       tldx
       waydroid
       waydroid-helper
