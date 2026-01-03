@@ -29,6 +29,7 @@ local ts_ensure_installed = {
   -- Rust
   "rust",
   "ron",
+  "terraform",
 }
 
 return {
