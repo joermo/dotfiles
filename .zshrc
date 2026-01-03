@@ -113,6 +113,9 @@ alias v="$(command -v vim)"
 alias ls='ls --color'
 alias c='clear'
 alias prp='poetry run python'
+bin_exists open || { # Conditionally alias xdg-open
+  bin_exists xdg-open && alias open=xdg-open
+}
 # alias zj='zellij'
 
 vim() {
