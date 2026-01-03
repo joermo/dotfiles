@@ -7,6 +7,10 @@ strip_colors() {
   echo "$output"
 }
 
+bin_exists() {
+  command -v "$1" 1>/dev/null 2>/dev/null
+}
+
 # Base template: https://github.com/dreamsofautonomy/zensh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -68,6 +72,9 @@ export PATH="$PATH:/usr/local/go/bin"
 
 # Load completions
 autoload -Uz compinit && compinit
+bin_exists flux && {
+  source <(flux completion zsh)
+}
 
 zinit cdreplay -q
 
@@ -105,6 +112,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias v="$(command -v vim)"
 alias ls='ls --color'
 alias c='clear'
+alias prp='poetry run python'
 # alias zj='zellij'
 
 vim() {
