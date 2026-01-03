@@ -23,6 +23,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable xdg-open (open CLI, i.e. 'open .')
+  xdg.portal.enable = true;
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
