@@ -14,7 +14,7 @@
       sunshine
       moonlight-qt
       melonDS
-      retroarch-full
+      # retroarch-full
       linuxKernel.packages.linux_zen.xone
       heroic
       ryubing

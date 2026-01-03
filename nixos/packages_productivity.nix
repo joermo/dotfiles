@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  # Enable docker
+  virtualisation.docker = {
+    enable = true;
+  };
+
   # Enable 1password
   programs._1password.enable = true;
   programs._1password-gui = {
@@ -35,6 +40,7 @@
       isort
       kitty
       lazygit
+      libreoffice
       libudev-zero
       lsd
       neovim
