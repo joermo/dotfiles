@@ -47,7 +47,7 @@ M.custom_workspace_grep = function(search_type, match_literal, add_opts)
   local telescope = require("telescope.builtin")
   local utils = require("joermo.config.utils")
   local cur_mode = vim.api.nvim_get_mode()["mode"]
-  local cur_ft = utils.get_buf_summary().filetype
+  local cur_ft = utils._get_buf_summary().filetype
   local opts = add_opts or {}
   if cur_ft == "neo-tree" then
     local search_dir = utils.neotree_get_closest_dir()

@@ -24,11 +24,14 @@ local prompt_for_path_copy = function(state)
     "5. Filename without extension: " .. results[5],
     "6. Extension of the filename: "  .. results[6],
   }, { prompt = "Choose to copy to clipboard:" }, function(choice)
-    local i = tonumber(choice:sub(1, 1))
-    local result = results[i]
-    vim.fn.setreg("+", result)
-    vim.notify("Copied: " .. result)
-  end)
+      if choice == nil then
+        return
+      end
+      local i = tonumber(choice:sub(1, 1))
+      local result = results[i]
+      vim.fn.setreg("+", result)
+      vim.notify("Copied: " .. result)
+    end)
 end
 
 return {

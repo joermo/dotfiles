@@ -82,7 +82,7 @@ M.close_all_buffers_but_current_and_provided = function(keep_types)
   end
 end
 
-M.get_buf_summary = function()
+M._get_buf_summary = function()
   local buf_info = {}
   buf_info.buffer_number = vim.api.nvim_get_current_buf()
   buf_info.name = vim.api.nvim_buf_get_name(buf_info.buffer_number)
@@ -96,16 +96,19 @@ M.get_buf_summary = function()
   return buf_info
 end
 
-M.print_buf_summary = function()
-  local buf_info = M.get_buf_summary()
-  print("Buffer Information:")
-  print("  Buffer Number: " .. buf_info.buffer_number)
-  print("  Name: " .. buf_info.name)
-  print("  Filetype: " .. buf_info.filetype)
-  print("  Line Count: " .. buf_info.line_count)
-  print("  Cursor Position: Line " .. buf_info.cursor_line .. ", Column " .. buf_info.cursor_column)
-  print("  Modified: " .. tostring(buf_info.is_modified))
-  print("  Readonly: " .. tostring(buf_info.is_readonly))
+M.get_buf_summary = function()
+  local buf_info = M._get_buf_summary()
+  local lines = {
+    "Buffer Information:",
+    "  Buffer Number: " .. buf_info.buffer_number,
+    "  Name: " .. buf_info.name,
+    "  Filetype: " .. buf_info.filetype,
+    "  Line Count: " .. buf_info.line_count,
+    "  Cursor Position: Line " .. buf_info.cursor_line .. ", Column " .. buf_info.cursor_column,
+    "  Modified: " .. tostring(buf_info.is_modified),
+    "  Readonly: " .. tostring(buf_info.is_readonly),
+  }
+  return table.concat(lines, "\n")
 end
 
 M.get_current_visual_selection = function()
@@ -128,5 +131,55 @@ M.neotree_get_closest_dir = function()
     return vim.fn.fnamemodify(cur_file, ":h") -- get parent of current file
   end
 end
+
+-- Generic keymap registrar
+M.TO_KEYBINDS = function(maps)
+  if type(maps) ~= "table" then
+    return
+  end
+  for mode_string, mappings in pairs(maps) do
+    -- Normalize modes
+    local modes = {}
+    for mode in string.gmatch(mode_string, "[^,]+") do
+      table.insert(modes, vim.trim(mode))
+    end
+    for _, map in ipairs(mappings) do
+      local keys, action, opts
+      -- Shorthand style:
+      -- { "<leader>A", function() end, { desc = "..." } }
+      if type(map[1]) == "string" and map[2] ~= nil then
+        keys = map[1]
+        action = map[2]
+        opts = map[3] or {}
+      -- Structured style:
+      -- { keys = "...", action = ..., opts = {...} }
+      elseif type(map) == "table" and map.keys and map.action then
+        keys = map.keys
+        action = map.action
+        opts = map.opts or {}
+      end
+      -- Convert string opts → { desc = opts }
+      if type(opts) == "string" then
+        opts = { desc = opts }
+      elseif opts == nil then
+        opts = {}
+      end
+      if keys and action then
+        vim.keymap.set(modes, keys, action, opts)
+      end
+    end
+  end
+end
+
+M.open_string_in_new_buffer = function(str)
+  local buf = vim.api.nvim_create_buf(true, false)
+  -- Split multiline string into table of lines
+  local lines = vim.split(str, "\n", { plain = true })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.api.nvim_set_current_buf(buf)
+end
+
+_G.TO_KEYBINDS = M.TO_KEYBINDS
+_G.UTILS = M
 
 return M
