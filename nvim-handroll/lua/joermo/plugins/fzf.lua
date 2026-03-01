@@ -53,7 +53,15 @@ return {
   config = function ()
     local fzf = require("fzf-lua")
     TO_KEYBINDS(KEYMAPS())
+    -- -- Override
+    -- local orig_file_sel_to_qf = fzf.actions.file_sel_to_qf
+    -- fzf.actions.file_sel_to_qf = function (selected, opts)
+    --   opts = opts or {}
+    --   opts['copen'] = false
+    --   orig_file_sel_to_qf(selected, opts)
+    -- end
     fzf.setup({
+      -- profile = {"telescope", "hide"},
       keymap = {
         fzf = {
           ["ctrl-q"] = "select-all+accept",

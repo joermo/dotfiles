@@ -22,7 +22,6 @@ local specs = {
   { import = "joermo.plugins.lsp" },
   { import = "joermo.plugins.ui" },
   { import = "joermo.plugins.qol" },
-  -- { import = "joermo.plugins.telescope" },
   { import = "joermo.plugins.ai" },
 }
 
