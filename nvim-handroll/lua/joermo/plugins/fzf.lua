@@ -3,8 +3,8 @@ local KEYMAPS = function ()
   -- TODO: revisit lazy.nvim 'keys' spec
   CUSTOM_PICKERS = require("joermo.config.fzf.custom_pickers")
   local literal_grep_opts = {
-    ["grep_opts"] = "--fixed-strings",
-    ["rg_opts"] = "--fixed-strings",
+    ["grep_opts"] = "--column --line-number --no-heading --color=always --smart-case --fixed-strings",
+    ["rg_opts"] = "--column --line-number --no-heading --color=always --smart-case --fixed-strings",
   }
   local cur_sel = UTILS.get_current_visual_selection
   return {
@@ -33,6 +33,15 @@ local KEYMAPS = function ()
     ["v"] = {
       { "'s", function () FzfLua.files({query=cur_sel()}) end, "Find file visual selection" },
       { "'r", function () FzfLua.live_grep_native({query=cur_sel()}) end, "Live grep visual selection" },
+      { "'R", function ()
+        FzfLua.live_grep_native(
+          vim.tbl_extend(
+            "force",
+            literal_grep_opts,
+            { query=cur_sel() }
+          )
+        )
+      end, "Live grep visual selection" },
       { "'c", function () FzfLua.lgrep_curbuf({query=cur_sel()}) end, "Live grep current file visual selection" },
     },
     ["t"] = {}
