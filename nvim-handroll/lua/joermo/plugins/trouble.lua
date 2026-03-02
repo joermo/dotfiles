@@ -1,5 +1,3 @@
-vim.cmd([[autocmd FileType qf setlocal nobuflisted]])
-
 return {
   "folke/trouble.nvim",
   opts = {}, -- for default options, refer to the configuration section for custom setup.
