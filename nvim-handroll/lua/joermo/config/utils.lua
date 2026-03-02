@@ -172,7 +172,7 @@ M.TO_KEYBINDS = function(maps)
 end
 
 M.open_string_in_new_buffer = function(str)
-  local buf = vim.api.nvim_create_buf(true, false)
+  local buf = vim.api.nvim_create_buf(true, true)
   -- Split multiline string into table of lines
   local lines = vim.split(str, "\n", { plain = true })
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)

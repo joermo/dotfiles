@@ -29,9 +29,17 @@ vim.keymap.set("n", "k", "gk")
 bind({ "n" }, "H", "<CMD>bprevious<CR>")
 bind({ "n" }, "L", "<CMD>bnext<CR>")
 bind("n", "<leader>Q", function()
-  utils.close_all_buffers_but_current_and_provided({ "NvimTree", "FTerm", "neo-tree" })
+  utils.close_all_buffers_but_current_and_provided({
+    "NvimTree",
+    "FTerm",
+    "neo-tree",
+    "snacks_terminal",
+  })
 end, { desc = "Close all buffers except the current" })
 bind("n", "<leader>bi", function()
+  utils.open_string_in_new_buffer(utils.get_buf_summary())
+end, { desc = "Open buffer summary" })
+bind({"n", "t"}, "<A-b>", function()
   utils.open_string_in_new_buffer(utils.get_buf_summary())
 end, { desc = "Open buffer summary" })
 
