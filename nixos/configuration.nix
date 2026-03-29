@@ -18,6 +18,14 @@
   nixpkgs.config.allowUnfree = true; # Allow unfree packages globally
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # boot.supportedFilesystems = [ "nfs" ];
+  # # networking.firewall.allowedTCPPorts = [ 2049 ];
+  # # networking.firewall.allowedUDPPorts = [ 2049 ];
+  # fileSystems."/home/joermo/nfs" = {
+  #   device = "truenas-storage.local:/mnt/main_pool/homelab";
+  #   fsType = "nfs";
+  #   options = [ "x-systemd.automount" "noauto" ];
+  # };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

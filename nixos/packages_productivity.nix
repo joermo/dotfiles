@@ -20,6 +20,7 @@
       ansible
       asdf-vm
       boxbuddy
+      caligula # for burning disk images
       cargo
       certbot
       curl
@@ -67,14 +68,19 @@
       wget
       wireguard-tools
       wireguard-ui
+      wireshark
       wl-clipboard
       zellij
       zoxide
       zsh
 
+      # ----- Unfree -----
+      jetbrains-toolbox
+
 
       # ----- Utilities -----
       affine
+      awscli2
       bitwarden-cli
       bitwarden-desktop
       btop
@@ -93,7 +99,8 @@
       kubernetes-helm
       kustomize
       localsend
-      nextcloud-client
+      net-tools
+      # nextcloud-client
       nushell
       obs-studio
       openrgb
