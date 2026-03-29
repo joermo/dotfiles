@@ -1,10 +1,10 @@
 { pkgs, ... }:
 
 {
-  # Enable docker
-  virtualisation.docker = {
-    enable = true;
-  };
+  # # Enable docker
+  # virtualisation.docker = {
+  #   enable = true;
+  # };
 
   # Enable 1password
   programs._1password.enable = true;
