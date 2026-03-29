@@ -61,7 +61,7 @@
   };
 
   # ----- Custom Services -----
-  services.envfs.enable = true;
+  services.envfs.enable = true; # make shell script directives work properly
   # ---------------------------
 
   services.printing.enable = true; # Enable CUPS to print documents.
