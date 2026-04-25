@@ -8,7 +8,6 @@
       cemu
       rpcs3
       dolphin-emu
-      duckstation
       prismlauncher
       protonplus
       sunshine

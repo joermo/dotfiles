@@ -5,7 +5,7 @@
       # ----- Vim specifics -----
       lua-language-server
       prettierd
-      nodePackages_latest.prettier
+      prettier
       stylua
       isort
       black
