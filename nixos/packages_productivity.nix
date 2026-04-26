@@ -88,6 +88,7 @@
       chromium
       clapper
       dbeaver-bin
+      direnv
       envsubst
       gearlever
       gnumake

@@ -19,6 +19,7 @@ bin_exists() {
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # Load homebrew if installed
 if [[ -f "/opt/homebrew/bin/brew" ]] then
@@ -172,6 +173,7 @@ alias curbr='git branch --show-current'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(direnv hook zsh)"
 
 
 # Python specifics:
@@ -215,3 +217,7 @@ nix_update() {
   sudo nix-channel --update
   sudo nixos-rebuild switch --upgrade
 }
+
+if [ -f "$HOME/.zshrc_custom" ]; then
+    source "$HOME/.zshrc_custom"
+fi
