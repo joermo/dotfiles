@@ -7,8 +7,6 @@ g.maplocalleader = " "
 g.have_nerd_font = true
 g.noerrorbells = true
 g.noswapfile = true
--- g.clipboard = 'osc52' -- TODO: set this conditionally
-
 o.mouse = "a" -- enable mouse mode
 o.showmode = false
 vim.schedule(function() -- Schedule this  to not delay startup time
@@ -54,3 +52,27 @@ o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- vim.cmd("set notermsync") -- only works by calling vim builtin; fixes cursor teleporting/flickering with zellij
 -- o.signcolumn = "yes:1"
 -- o.conceallevel = 0
+
+-- Clipboard settings for maximum compatibility
+local is_ssh = vim.env.SSH_CLIENT ~= nil
+  or vim.env.SSH_TTY ~= nil
+  or vim.env.SSH_CONNECTION ~= nil
+
+if is_ssh then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = function() return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')} end,
+      ['*'] = function() return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')} end,
+    },
+  }
+end
+
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
+-----------------------------------------------
