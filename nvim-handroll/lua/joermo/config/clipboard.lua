@@ -11,6 +11,7 @@ local function set_ram_clipboard_for_ssh()
   local function write_clip(reg, lines)
     local text = table.concat(lines, "\n")
     vim.fn.writefile(vim.split(text, "\n", { plain = true }), clip_file)
+    vim.fn.setfperm(clip_file, 'rw-------')
     local osc52 = require("vim.ui.clipboard.osc52")
     osc52.copy(reg)(lines)
   end
