@@ -31,11 +31,11 @@ local lsp_overrides = {
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    for _, server in ipairs(servers) do
-      if lsp_overrides[server] then
-        vim.lsp.config(server, lsp_overrides[server])
-      end
-      vim.lsp.enable(server)
+    -- Apply custom overrides
+    for server, config in pairs(lsp_overrides) do
+      vim.lsp.config(server, config)
     end
+    -- Enable all servers
+    vim.lsp.enable(servers)
   end,
 }
