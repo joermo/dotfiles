@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "markdown" },
   callback = function()
-    vim.o.wrap = true
+    vim.o.wrap = false
   end,
 })
 
