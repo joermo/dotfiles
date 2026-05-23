@@ -171,6 +171,14 @@ function M.yaml_objects(opts)
   end
 
   table.sort(entries, function(a, b)
+    if a.lnum ~= b.lnum then
+      return a.lnum < b.lnum
+    end
+
+    if a.col ~= b.col then
+      return a.col < b.col
+    end
+
     return a.path < b.path
   end)
 
