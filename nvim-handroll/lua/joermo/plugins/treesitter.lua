@@ -1,17 +1,10 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  branch = "main",
-  build = ":TSUpdate",
-  event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
-  dependencies = {},
-  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-  keys = {
-    { "<c-space>", desc = "Increment Selection" },
-    { "<bs>",      desc = "Decrement Selection", mode = "x" },
-  },
+  -- Requires tree-sitter-cli installed
+  -- (brew install tree-sitter-cli)
+  "arborist-ts/arborist.nvim",
+  lazy = false,
   config = function()
-    local DISABLE_HIGHLIGHT_THRESHOLD = 30000
-    require("nvim-treesitter").setup({
+    require("arborist").setup({
       ensure_installed = {
         "bash",
         "c",
@@ -20,7 +13,7 @@ return {
         "javascript",
         "jsdoc",
         "json",
-        "jsonc",
+        --"jsonc",
         "lua",
         "luadoc",
         "luap",
@@ -36,24 +29,14 @@ return {
         "xml",
         "yaml",
         "go",
-        -- Python:
         "python",
         "ninja",
         "rst",
-        -- Rust
         "rust",
         "ron",
-        "terraform",
+        --"terraform",
       },
       auto_install = true,
-      sync_install = false,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-        disable = function(lang, bufnr)
-          return vim.api.nvim_buf_line_count(bufnr or 0) > DISABLE_HIGHLIGHT_THRESHOLD
-        end,
-      }
     })
-  end
+  end,
 }
