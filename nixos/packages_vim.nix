@@ -28,5 +28,6 @@
       rust-analyzer
       yaml-language-server
       beautysh
+      tree-sitter
   ];
 }

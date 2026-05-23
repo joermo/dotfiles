@@ -59,6 +59,10 @@ bind("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
   silent = true,
   desc = "chmod +x the current file",
 })
+bind("n", "<leader>w", function ()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.wo.linebreak = vim.wo.wrap
+end, {desc = "Toggle word wrap for the current buffer"})
 
 -- Utils-----------------------------------------------------------------------
 
