@@ -1,7 +1,9 @@
 local M = {}
 
 local function notify(msg, level)
-  vim.notify(msg, level or vim.log.levels.INFO, { title = "yaml-objects-fzf" })
+  vim.notify(msg, level or vim.log.levels.INFO, {
+    title = "yaml-objects-fzf",
+  })
 end
 
 local function node_text(node, bufnr)
@@ -20,137 +22,89 @@ local function strip_quotes(s)
   return s
 end
 
-local function is_scalar_type(t)
-  return t:find("scalar") ~= nil
-end
-
--- improved: only unwrap ONE flow_node layer (your version was fine but implicit)
 local function unwrap_flow_node(n)
   if not n then return nil end
   if n:type() ~= "flow_node" then return n end
-
   for c in n:iter_children() do
     return c
   end
-
   return n
 end
 
-local function count_mapping_pairs(map_node)
-  local n = 0
-  for ch in map_node:iter_children() do
-    local t = ch:type()
-    if t == "block_mapping_pair" or t == "flow_pair" then
-      n = n + 1
-    end
-  end
-  return n
-end
-
-local function count_sequence_items(seq_node)
-  local n = 0
-  for ch in seq_node:iter_children() do
-    local t = ch:type()
-    if t == "block_sequence_item" then
-      n = n + 1
-    else
-      if t == "flow_node" or t:find("mapping") or t:find("sequence") or is_scalar_type(t) then
-        n = n + 1
-      end
-    end
-  end
-  return n
-end
-
-local function preview_for_value(val_node, bufnr)
-  if not val_node then return "null" end
-
-  val_node = unwrap_flow_node(val_node)
-
-  local t = val_node:type()
-
-  if is_scalar_type(t) then
-    local txt = strip_quotes(node_text(val_node, bufnr)):gsub("\n", " ")
-    return txt
-  end
-
-  if t == "block_sequence" or t == "flow_sequence" then
-    return ("<list:%d>"):format(count_sequence_items(val_node))
-  end
-
-  if t == "block_mapping" or t == "flow_mapping" then
-    return ("<object:%d>"):format(count_mapping_pairs(val_node))
-  end
-
-  return ("<%s>"):format(t)
-end
-
--- FIXED BUT MINIMAL CHANGE:
--- your original logic was OK; only removed dead code + made it deterministic
 local function split_pair(pair_node)
-  local key_node, val_node
-
   local kids = {}
+
   for ch in pair_node:iter_children() do
-    local t = ch:type()
-    if t ~= ":" then
+    if ch:type() ~= ":" then
       kids[#kids + 1] = ch
     end
   end
 
-  if #kids == 0 then return nil, nil end
-
-  key_node = unwrap_flow_node(kids[1])
-
-  -- IMPORTANT FIX:
-  -- your original loop attempted range logic but never actually used it
-  -- fallback ordering is enough and more reliable across TS versions
-  if #kids >= 2 then
-    val_node = unwrap_flow_node(kids[2])
-  end
-
-  return key_node, val_node
+  return unwrap_flow_node(kids[1]), unwrap_flow_node(kids[2])
 end
 
-local function collect_entries(bufnr)
-  local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "yaml")
+-- 🔥 IMPORTANT: more correct YAML traversal entry point
+local function get_root(parser)
+  local tree = parser:parse()[1]
+  if not tree then return nil end
+
+  local root = tree:root()
+
+  -- YAML trees often wrap content under document nodes
+  for child in root:iter_children() do
+    if child:type():find("mapping") or child:type():find("sequence") then
+      return root
+    end
+  end
+
+  return root
+end
+
+local function collect(bufnr)
+  local ft = vim.bo[bufnr].filetype
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr, ft)
+
   if not ok or not parser then
-    return nil, "Tree-sitter YAML parser not available (install :TSInstall yaml)"
+    return nil, "No Treesitter parser for: " .. ft
   end
 
   local tree = parser:parse()[1]
-  if not tree then return nil, "No syntax tree" end
+  if not tree then
+    return nil, "No syntax tree"
+  end
 
   local root = tree:root()
   local entries = {}
 
-  local function add(path, valnode, anchor_node)
-    local sr, sc = anchor_node:start()
+  local function add(path, node, anchor)
+    local sr, sc = anchor:start()
     entries[#entries + 1] = {
       path = path,
-      preview = preview_for_value(valnode, bufnr),
       lnum = sr + 1,
       col = sc,
     }
   end
 
   local function walk(node, path)
+    if not node then return end
+
     local t = node:type()
 
     if t == "block_mapping" or t == "flow_mapping" then
       for child in node:iter_children() do
-        local ct = child:type()
-        if ct == "block_mapping_pair" or ct == "flow_pair" then
-          local k_node, v_node = split_pair(child)
+        if child:type() == "block_mapping_pair"
+        or child:type() == "flow_pair" then
 
-          if k_node then
-            local key = strip_quotes(node_text(k_node, bufnr))
+          local k, v = split_pair(child)
+
+          if k then
+            local key = strip_quotes(node_text(k, bufnr))
             local newpath = (path ~= "" and (path .. "." .. key) or key)
 
-            add(newpath, v_node, child)
+            add(newpath, v, child)
 
-            if v_node then
-              walk(v_node, newpath)
+            if v then
+              walk(v, newpath)
             end
           end
         end
@@ -162,69 +116,57 @@ local function collect_entries(bufnr)
       local idx = 0
 
       for child in node:iter_children() do
-        local ct = child:type()
+        local item = child
 
-        if ct == "block_sequence_item" then
-          local item = nil
+        if child:type() == "block_sequence_item" then
+          item = nil
           for gc in child:iter_children() do
             item = unwrap_flow_node(gc)
             break
           end
+        end
 
+        item = unwrap_flow_node(item)
+
+        if item then
           local newpath = ("%s[%d]"):format(path, idx)
-          add(newpath, item, child)
-
-          if item then
-            walk(item, newpath)
-          end
-
-          idx = idx + 1
-
-        elseif ct == "flow_node" or ct:find("mapping") or ct:find("sequence") or is_scalar_type(ct) then
-          local item = unwrap_flow_node(child)
-          local newpath = ("%s[%d]"):format(path, idx)
-
           add(newpath, item, child)
           walk(item, newpath)
-
           idx = idx + 1
         end
       end
-
       return
     end
 
-    if t == "flow_node" then
-      local inner = unwrap_flow_node(node)
-      if inner and inner ~= node then
-        walk(inner, path)
-      end
-      return
-    end
-
-    for ch in node:iter_children() do
-      walk(ch, path)
+    for child in node:iter_children() do
+      walk(child, path)
     end
   end
 
   walk(root, "")
-
-  if #entries == 0 then
-    return nil, "No YAML paths found"
-  end
 
   return entries
 end
 
 function M.yaml_objects(opts)
   opts = opts or {}
-  local fzf = require("fzf-lua")
+
+  local ok, fzf = pcall(require, "fzf-lua")
+  if not ok then
+    notify("fzf-lua missing", vim.log.levels.ERROR)
+    return
+  end
 
   local bufnr = vim.api.nvim_get_current_buf()
-  local entries, err = collect_entries(bufnr)
+  local entries, err = collect(bufnr)
 
   if not entries then
     notify(err, vim.log.levels.ERROR)
+    return
+  end
+
+  if #entries == 0 then
+    notify("No YAML paths found (collector empty)", vim.log.levels.ERROR)
     return
   end
 
@@ -232,40 +174,51 @@ function M.yaml_objects(opts)
     return a.path < b.path
   end)
 
+  local fname = vim.api.nvim_buf_get_name(bufnr)
+
   local lines = {}
 
+  -- IMPORTANT: encode real file positions for previewer
   for _, e in ipairs(entries) do
-    lines[#lines + 1] = ("%s\t%s\t%d\t%d"):format(
-      e.path,
-      e.preview,
+    lines[#lines + 1] = string.format(
+      "%s:%d:%d:%s",
+      fname,
       e.lnum,
-      e.col
+      e.col,
+      e.path
     )
   end
 
   fzf.fzf_exec(lines, {
     prompt = opts.prompt or "YAML> ",
+
     fzf_opts = {
-      ["--delimiter"] = "\t",
-      ["--with-nth"] = "1,2",
-      ["--nth"] = "1..",
+      ["--delimiter"] = ":",
+      ["--with-nth"] = "4",
+      ["--preview-window"] = "right:60%",
     },
-    preview = opts.preview or "printf '%s\n\n%s\n' {1} {2}",
+
+    -- 🔥 ONLY stable preview mode in fzf_exec
+    previewer = "builtin",
+
     actions = {
       ["default"] = function(selected)
         if not selected or #selected == 0 then return end
 
-        local fields = vim.split(selected[1], "\t", { plain = true })
-        local lnum = tonumber(fields[3]) or 1
-        local col = tonumber(fields[4]) or 0
+        local parts = vim.split(selected[1], ":", { plain = true })
 
-        vim.api.nvim_win_set_cursor(0, { lnum, col })
+        vim.api.nvim_win_set_cursor(0, {
+          tonumber(parts[2]) or 1,
+          tonumber(parts[3]) or 0,
+        })
       end,
 
       ["ctrl-y"] = function(selected)
         if not selected or #selected == 0 then return end
 
-        local path = selected[1]:match("^(.-)\t") or selected[1]
+        local parts = vim.split(selected[1], ":", { plain = true })
+        local path = parts[4]
+
         vim.fn.setreg("+", path)
         notify("Copied: " .. path)
       end,
