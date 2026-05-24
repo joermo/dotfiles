@@ -27,9 +27,6 @@ keybinds clear-defaults=true {
         bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
         bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
-        // custom binds
-        bind "<" { MoveTab "left"; }
-        bind ">" { MoveTab "right"; }
     }
     tab {
         bind "left" { GoToPreviousTab; }
@@ -58,6 +55,9 @@ keybinds clear-defaults=true {
         bind "Ctrl t" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
+        // custom binds
+        bind "<" { MoveTab "left"; }
+        bind ">" { MoveTab "right"; }
     }
     resize {
         bind "left" { Resize "Increase left"; }
