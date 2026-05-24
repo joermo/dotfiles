@@ -49,7 +49,8 @@ return {
       follow_current_file = {
         enabled = true,
       },
-      hijack_netrw_behavior = "disabled",
+      -- hijack_netrw_behavior = "disabled",
+      use_libuv_file_watcher = true,
       filtered_items = {
         visible = true,
         hide_dotfiles = true,
@@ -70,5 +71,11 @@ return {
         ["Y"] = prompt_for_path_copy,
       },
     },
+  },
+  enable_git_status = true,
+  enable_diagnostics = true,
+  cwd_target = {
+    sidebar = "none",
+    current = "none",
   },
 }
