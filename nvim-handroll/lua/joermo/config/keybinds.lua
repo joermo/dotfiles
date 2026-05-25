@@ -81,7 +81,7 @@ bind("n", "gK", vim.lsp.buf.signature_help)
 bind("n", "<leader>cA", function()
   vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
 end)
-bind("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
+bind("n", "<leader>lr", "<cmd>lsp restart<cr>", { desc = "Restart LSP" })
 bind("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" }) -- jump to previous diagnostic in buffer
 bind("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" }) -- jump to next diagnostic in buffer
 bind("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
