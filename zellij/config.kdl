@@ -173,7 +173,7 @@ keybinds clear-defaults=true {
         // bind "Ctrl q" { Quit; } // disable due to vim conflict
     }
     shared_except "locked" "move" {
-        bind "Ctrl h" { SwitchToMode "move"; }
+        bind "Alt m" { SwitchToMode "move"; } // custom
     }
     shared_except "locked" "session" {
         bind "Ctrl s" { SwitchToMode "session"; } // custom
