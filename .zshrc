@@ -221,3 +221,5 @@ nix_update() {
 if [ -f "$HOME/.zshrc_custom" ]; then
     source "$HOME/.zshrc_custom"
 fi
+
+export PATH="$HOME/.duckdb/cli/latest":$PATH

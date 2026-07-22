@@ -21,5 +21,6 @@
 
       # ----- Non-FOSS -----
       vesktop
+      discord
   ];
 }

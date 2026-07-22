@@ -12,6 +12,7 @@
       ./packages_gaming.nix
       ./packages_vim.nix
       ./podman.nix
+      ./system_libs.nix
     ];
 
   system.stateVersion = "25.05"; # READ THE DOCS BEFORE UPDATING THIS (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
