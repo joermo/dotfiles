@@ -13,6 +13,7 @@
       ./packages_vim.nix
       ./podman.nix
       ./system_libs.nix
+      ./ollama.nix
     ];
 
   system.stateVersion = "25.05"; # READ THE DOCS BEFORE UPDATING THIS (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
@@ -90,6 +91,7 @@
   nixpkgs.config.permittedInsecurePackages = [
     "mbedtls-2.28.10"
     "electron-35.7.5"
+    "electron-39.8.10"
   ];
 
 

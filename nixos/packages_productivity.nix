@@ -115,7 +115,6 @@
       waydroid-helper
       xdg-utils
       yq-go # official 'yq' cli
-      llama-cpp
       p7zip
 
       # # ----- Non-FOSS -----
