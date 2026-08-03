@@ -23,6 +23,10 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+
+  environment.systemPackages = with pkgs; [
+    nvidia-container-toolkit
+  ];
   hardware.nvidia-container-toolkit.enable = true;
 
   # Enable and unmask NVIDIA systemd services

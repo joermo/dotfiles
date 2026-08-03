@@ -8,6 +8,12 @@
       log-driver = "journald";
       registry-mirrors = [ "https://mirror.gcr.io" ];
       storage-driver = "overlay2";
+      runtimes = {
+        nvidia = {
+          path = "nvidia-container-runtime";
+          runtimeArgs = [];
+        };
+      };
     };
   };
 }
