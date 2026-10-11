@@ -116,6 +116,8 @@
       xdg-utils
       yq-go # official 'yq' cli
       p7zip
+      qmk
+      vscode
 
       # # ----- Non-FOSS -----
       # 1password
