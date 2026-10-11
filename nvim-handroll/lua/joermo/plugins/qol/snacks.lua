@@ -15,6 +15,16 @@ end, { desc = "Open Git Blame" })
 -- bind("n", "<C-n>", function()
 --   Snacks.explorer.open()
 -- end, { desc = "Toggle File Explorer" })
+bind("n", "<leader>r", function()
+  Snacks.terminal("tuicr", {
+    win = {
+      position="float",
+      width=0.9,
+      height=0.9,
+      border="rounded",
+    }
+  })
+end, { desc = "Open tuicr to review changes." })
 
 return {
   "folke/snacks.nvim",
