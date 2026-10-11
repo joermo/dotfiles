@@ -118,6 +118,7 @@
       p7zip
       qmk
       vscode
+      tuicr # code review CLI
 
       # # ----- Non-FOSS -----
       # 1password
