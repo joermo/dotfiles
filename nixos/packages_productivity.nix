@@ -108,7 +108,7 @@
       opentabletdriver
       opentofu
       ppsspp-sdl-wayland
-      protonvpn-gui
+      proton-vpn
       talosctl
       tldx
       waydroid

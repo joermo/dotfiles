@@ -18,7 +18,7 @@
       protonplus
       sunshine
       moonlight-qt
-      melonDS
+      melonds
       # retroarch-full
       linuxKernel.packages.linux_zen.xone
       heroic
